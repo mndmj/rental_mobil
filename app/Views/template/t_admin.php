@@ -112,7 +112,7 @@
             </section>
         </div>
     </div>
-
+    <?= $this->include('partial/notif.php') ?>
 </body>
 
 </html>
