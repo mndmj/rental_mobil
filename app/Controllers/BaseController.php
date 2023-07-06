@@ -54,5 +54,17 @@ abstract class BaseController extends Controller
         // Preload any models, libraries, etc, here.
 
         // E.g.: $this->session = \Config\Services::session();
+        helper("form");
     }
+
+    protected function redirect()
+    {
+        return "<script>window.history.back();</script>";
+    }
+
+    // protected function backWithAlert($key, $alert)
+    // {
+    //     session()->setFlashdata($key, $alert);
+    //     return $this->redirect();
+    // }
 }

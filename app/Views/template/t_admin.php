@@ -37,7 +37,7 @@
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="<?= base_url('home') ?>" class="nav-link">
+                    <a href="<?= base_url('auth/logout') ?>" class="nav-link">
                         <i class="nav-icon fas fa-sign-out-alt"></i> Logout
                     </a>
                 </li>

@@ -33,37 +33,39 @@
                             The best offer <br />
                             <span class="text-primary">for your rent</span>
                         </h1>
-                        <p style="color: hsl(217, 10%, 50.8%)">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Eveniet, itaque accusantium odio, soluta, corrupti aliquam
-                            quibusdam tempora at cupiditate quis eum maiores libero
-                            veritatis? Dicta facilis sint aliquid ipsum atque?
+                        <p class="text-capitalize h5" style="color: hsl(217, 10%, 50.8%)">
+                            Melayani : Travel, Sewa Mobil & antar jemput bandara,pelabuhan, terminal, dll
                         </p>
                     </div>
 
                     <div class="col-lg-5 mb-5 mb-lg-0">
                         <div class="card">
                             <div class="card-body py-5 px-md-5">
-                                <form action="<?= base_url('admin') ?>">
-                                    <h2 class="fw-bold ls-tight mb-4 text-center">Rental Mobil Yaa Rozaq</h2>
-                                    <!-- username input -->
-                                    <div class="form-outline mb-4">
-                                        <label class="form-label" for="username">Username</label>
-                                        <input type="text" id="username" class="form-control" required />
+                                <?= form_open('auth/cek_login') ?>
+                                <h2 class="fw-bold ls-tight mb-4 text-center">Rental Mobil Yaa Rozaq</h2>
+                                <!-- username input -->
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="username">Username</label>
+                                    <input type="text" class="form-control <?= ($validation->hasError('username')) ? 'is-invalid' : '' ?>" name="username" id="username">
+                                    <div id="usernameFeedback" class="invalid-feedback">
+                                        <small><?= $validation->getError('username') ?></small>
                                     </div>
+                                </div>
 
-                                    <!-- Password input -->
-                                    <div class="form-outline mb-4">
-                                        <label class="form-label" for="password">Password</label>
-                                        <input type="password" id="password" class="form-control" required />
+                                <!-- Password input -->
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="password">Password</label>
+                                    <input type="password" class="form-control <?= ($validation->hasError('password')) ? 'is-invalid' : '' ?>" name="password" id="password">
+                                    <div id="passwordFeedback" class="invalid-feedback">
+                                        <small><?= $validation->getError('password') ?></small>
                                     </div>
+                                </div>
 
-                                    <!-- Submit button -->
-                                    <button type="submit" class="btn btn-primary btn-block mb-4">
-                                        Login
-                                    </button>
-
-                                </form>
+                                <!-- Submit button -->
+                                <button type="submit" class="btn btn-primary btn-block mb-4">
+                                    Login
+                                </button>
+                                <?= form_close() ?>
                             </div>
                         </div>
                     </div>
@@ -74,6 +76,7 @@
     </section>
     <!-- Section: Design Block -->
 
+    <?= $this->include('partial/notif.php'); ?>
 </body>
 
 </html>
