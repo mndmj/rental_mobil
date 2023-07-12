@@ -55,6 +55,7 @@ abstract class BaseController extends Controller
 
         // E.g.: $this->session = \Config\Services::session();
         helper("form");
+        date_default_timezone_set('Asia/Jakarta');
     }
 
     protected function redirect()

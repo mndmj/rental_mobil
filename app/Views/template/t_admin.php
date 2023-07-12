@@ -80,6 +80,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="<?= base_url('sopir') ?>" class="nav-link">
+                                <i class="nav-icon fas fa-id-card"></i>
+                                <p>Sopir</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="<?= base_url('admin') ?>" class="nav-link">
                                 <i class="nav-icon fas fa-upload"></i>
                                 <p>Peminjaman</p>
