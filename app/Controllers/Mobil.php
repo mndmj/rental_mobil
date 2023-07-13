@@ -26,7 +26,7 @@ class Mobil extends BaseController
         return view('admin/view_mobil', $data);
     }
 
-    public function insertData()
+    public function insert_data()
     {
         $data = [
             'nama' => $this->request->getPost('nama'),
@@ -42,7 +42,7 @@ class Mobil extends BaseController
         return redirect()->to('mobil')->with('success', 'Data berhasil ditambahkan');
     }
 
-    public function editData($id_mobil)
+    public function edit_data($id_mobil)
     {
         $data = [
             'nama' => $this->request->getPost('nama'),
@@ -53,12 +53,13 @@ class Mobil extends BaseController
             'cc_mobil' => $this->request->getPost('cc_mobil'),
             'warna_mobil' => $this->request->getPost('warna_mobil'),
             'harga_sewa' => $this->request->getPost('harga_sewa'),
+            'status' => $this->request->getPost('status'),
         ];
         $this->ModelMobil->update($id_mobil, $data);
         return redirect()->to('mobil')->with('warning', 'Data berhasil diedit');
     }
 
-    public function deleteData($id_mobil)
+    public function delete_data($id_mobil)
     {
         $data = [
             'id_mobil' => $id_mobil,

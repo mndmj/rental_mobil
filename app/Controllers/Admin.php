@@ -17,8 +17,8 @@ class Admin extends BaseController
     public function index()
     {
         $data = [
-            'mobil' => $this->ModelAdmin->totalMobil('id_mobil'),
-            'sopir' => $this->ModelAdmin->totalSopir('id_sopir'),
+            'mobil' => $this->ModelAdmin->total_mobil('id_mobil'),
+            'sopir' => $this->ModelAdmin->total_sopir('id_sopir'),
         ];
         return view('admin/view_dashboard', $data);
     }

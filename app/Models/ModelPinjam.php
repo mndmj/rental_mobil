@@ -10,5 +10,5 @@ class ModelPinjam extends Model
     protected $primaryKey       = 'id_pinjam';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
-    protected $allowedFields    = ['id_user', 'id_mobil', 'tgl_pinjam', 'tgl_pesan', 'id_sopir'];
+    protected $allowedFields    = ['id_user', 'id_mobil', 'tgl_pinjam', 'nama_user', 'tgl_pesan', 'tgl_kembali', 'jaminan', 'telepon', 'id_sopir', 'created_at'];
 }

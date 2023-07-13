@@ -6,13 +6,13 @@ use CodeIgniter\Model;
 
 class ModelAdmin extends Model
 {
-    public function totalMobil()
+    public function total_mobil()
     {
         $mobil = new ModelMobil();
         return count($mobil->findAll());
     }
 
-    public function totalSopir()
+    public function total_sopir()
     {
         $sopir = new ModelSopir();
         return count($sopir->findAll());

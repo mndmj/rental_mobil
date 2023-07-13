@@ -63,6 +63,8 @@ abstract class BaseController extends Controller
         return "<script>window.history.back();</script>";
     }
 
+    protected $jaminan = ['KTP', 'SIM C', 'Passport', 'KK', 'Kendaraan Bermotor', 'BPKB'];
+
     // protected function backWithAlert($key, $alert)
     // {
     //     session()->setFlashdata($key, $alert);

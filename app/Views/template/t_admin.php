@@ -86,13 +86,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= base_url('admin') ?>" class="nav-link">
+                            <a href="<?= base_url('transaksi/pinjam') ?>" class="nav-link">
                                 <i class="nav-icon fas fa-upload"></i>
                                 <p>Peminjaman</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= base_url('admin') ?>" class="nav-link">
+                            <a href="<?= base_url('transaksi/kembali') ?>" class="nav-link">
                                 <i class="nav-icon fas fa-download"></i>
                                 <p>Pengembalian</p>
                             </a>

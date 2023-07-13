@@ -30,24 +30,24 @@
         <div class="small-box bg-red">
             <div class="inner">
                 <h3>Peminjaman</h3>
-                <p>Jumlah data : 0</p>
+                <p>Jumlah data : </p>
             </div>
             <div class="icon">
                 <i class="fas fa-upload"></i>
             </div>
-            <a href="<?= base_url('admin') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="<?= base_url('transaksi/pinjam') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
     <div class="col-lg-3 col-12">
         <div class="small-box bg-green">
             <div class="inner">
                 <h3>Pengembalian</h3>
-                <p>Jumlah data : 0</p>
+                <p>Jumlah data : </p>
             </div>
             <div class="icon">
                 <i class="fas fa-download"></i>
             </div>
-            <a href="<?= base_url('admin') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="<?= base_url('transaksi/kembali') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
 </div>

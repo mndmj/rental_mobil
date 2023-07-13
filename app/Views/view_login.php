@@ -23,30 +23,30 @@
 
 <body>
     <!-- Section: Design Block -->
-    <section class="">
+    <section class="" style="background: url(<?= base_url('img/mobil_rental.jpg') ?>) no-repeat center; background-size: 100%;">
         <!-- Jumbotron -->
-        <div class="px-4 py-5 px-md-5 text-center text-lg-start vh-100 d-flex" style="background-color: hsl(0, 0%, 96%)">
+        <div class="px-4 py-5 px-md-5 text-center text-lg-start vh-100 d-flex">
             <div class="container m-auto">
                 <div class="row gx-lg-5 mx-2 align-items-center">
-                    <div class="col-lg-5 mx-5 mb-5 mb-lg-0">
-                        <h1 class="my-5 display-3 fw-bold ls-tight">
-                            The best offer <br />
-                            <span class="text-primary">for your rent</span>
+                    <div class="col-lg-5 mx-5">
+                        <h1 class="my-5 display-3 fw-bold ls-tight text-blue">
+                            The best offer <br>
+                            <span class="text-white">for your rent</span>
                         </h1>
-                        <p class="text-capitalize h5" style="color: hsl(217, 10%, 50.8%)">
-                            Melayani : Travel, Sewa Mobil & antar jemput bandara,pelabuhan, terminal, dll
+                        <p class="text-capitalize h5 text-secondary">
+                            Melayani : Travel, Sewa Mobil & antar jemput bandara,pelabuhan, terminal, dan lain-lain
                         </p>
                     </div>
 
                     <div class="col-lg-5 mb-5 mb-lg-0">
-                        <div class="card">
+                        <div class="card text-dark">
                             <div class="card-body py-5 px-md-5">
                                 <?= form_open('auth/cek_login') ?>
                                 <h2 class="fw-bold ls-tight mb-4 text-center">Rental Mobil Yaa Rozaq</h2>
                                 <!-- username input -->
                                 <div class="form-outline mb-4">
-                                    <label class="form-label" for="username">Username</label>
-                                    <input type="text" class="form-control <?= ($validation->hasError('username')) ? 'is-invalid' : '' ?>" name="username" id="username">
+                                    <!-- <label class="form-label" for="username">Username</label> -->
+                                    <input type="text" class="form-control <?= ($validation->hasError('username')) ? 'is-invalid' : '' ?>" name="username" id="username" placeholder="Username">
                                     <div id="usernameFeedback" class="invalid-feedback">
                                         <small><?= $validation->getError('username') ?></small>
                                     </div>
@@ -54,8 +54,8 @@
 
                                 <!-- Password input -->
                                 <div class="form-outline mb-4">
-                                    <label class="form-label" for="password">Password</label>
-                                    <input type="password" class="form-control <?= ($validation->hasError('password')) ? 'is-invalid' : '' ?>" name="password" id="password">
+                                    <!-- <label class="form-label" for="password">Password</label> -->
+                                    <input type="password" class="form-control <?= ($validation->hasError('password')) ? 'is-invalid' : '' ?>" name="password" id="password" placeholder="Password">
                                     <div id="passwordFeedback" class="invalid-feedback">
                                         <small><?= $validation->getError('password') ?></small>
                                     </div>

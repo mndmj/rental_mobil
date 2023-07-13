@@ -25,6 +25,7 @@
                         <th>CC</th>
                         <th>Warna</th>
                         <th>Harga Sewa</th>
+                        <th>Ketersediaan</th>
                         <th width="50px">Action</th>
                     </tr>
                 </thead>
@@ -41,6 +42,7 @@
                             <td><?= $value['cc_mobil'] ?></td>
                             <td><?= $value['warna_mobil'] ?></td>
                             <td>Rp<?= $value['harga_sewa'] ?></td>
+                            <td><?= $value['status'] ?></td>
                             <td>
                                 <button class="btn btn-sm btn-warning" data-toggle="modal" data-target="#edit<?= $value['id_mobil'] ?>">
                                     <i class="fas fa-pen"></i>
@@ -67,7 +69,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <?= form_open('mobil/insertData') ?>
+            <?= form_open('mobil/insert_data') ?>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-6">
@@ -128,7 +130,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <?= form_open('mobil/editData/' . $value['id_mobil']) ?>
+                <?= form_open('mobil/edit_data/' . $value['id_mobil']) ?>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-6">
@@ -147,6 +149,13 @@
                             <div class="form-group">
                                 <label for="">Tahun Keluaran</label>
                                 <input name="th_keluaran" value="<?= $value['th_keluaran'] ?>" class="form-control" placeholder="Keluaran" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Status Ketersediaan</label>
+                                <select name="status" class="form-control">
+                                    <option value="Ada" selected>Ada</option>
+                                    <option value="Tidak Ada">Tidak Ada</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-6">
@@ -195,7 +204,7 @@
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default btn-sm" data-bs-dismiss="modal"></button>
-                    <a href="<?= base_url('mobil/deleteData/' . $value['id_mobil']) ?>" class="btn btn-danger btn-sm">Hapus</a>
+                    <a href="<?= base_url('mobil/delete_data/' . $value['id_mobil']) ?>" class="btn btn-danger btn-sm">Hapus</a>
                 </div>
             </div>
         </div>

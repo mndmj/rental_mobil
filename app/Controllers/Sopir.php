@@ -26,7 +26,7 @@ class Sopir extends BaseController
         return view('admin/view_sopir', $data);
     }
 
-    public function insertData()
+    public function insert_data()
     {
         $data = [
             'nik' => $this->request->getPost('nik'),
@@ -38,7 +38,7 @@ class Sopir extends BaseController
         return redirect()->to('sopir')->with('success', 'Data berhasil ditambahkan');
     }
 
-    public function editData($id_sopir)
+    public function edit_data($id_sopir)
     {
         $data = [
             'nik' => $this->request->getPost('nik'),
@@ -50,7 +50,7 @@ class Sopir extends BaseController
         return redirect()->to('sopir')->with('warning', 'Data berhasil diedit');
     }
 
-    public function deleteData($id_sopir)
+    public function delete_data($id_sopir)
     {
         $data = [
             'id_sopir' => $id_sopir,

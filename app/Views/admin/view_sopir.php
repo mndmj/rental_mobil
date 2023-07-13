@@ -59,7 +59,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <?= form_open('sopir/insertData') ?>
+            <?= form_open('sopir/insert_data') ?>
             <div class="modal-body">
                 <div class="row">
                     <div class="col">
@@ -102,7 +102,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <?= form_open('sopir/editData/' . $value['id_sopir']) ?>
+                <?= form_open('sopir/edit_data/' . $value['id_sopir']) ?>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col">
@@ -151,7 +151,7 @@
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default btn-sm" data-bs-dismiss="modal"></button>
-                    <a href="<?= base_url('sopir/deleteData/' . $value['id_sopir']) ?>" class="btn btn-danger btn-sm">Hapus</a>
+                    <a href="<?= base_url('sopir/delete_data/' . $value['id_sopir']) ?>" class="btn btn-danger btn-sm">Hapus</a>
                 </div>
             </div>
         </div>
