@@ -100,7 +100,7 @@ class Transaksi extends BaseController
             'title' => 'RentCar',
             'subtitle' => 'Pengembalian',
             'kembali' => $this->ModelKembali
-                ->join('_transaksi_pinjam', '_transaksi_pinjam.id_pinjam = transaksi_kembali.id_pinjam')
+                ->join('transaksi_pinjam', 'transaksi_pinjam.id_pinjam = transaksi_kembali.id_pinjam')
                 ->findAll(),
         ];
         return view('admin/view_kembali.php', $data);
