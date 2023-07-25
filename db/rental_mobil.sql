@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 13 Jul 2023 pada 22.15
+-- Waktu pembuatan: 25 Jul 2023 pada 18.35
 -- Versi server: 10.4.22-MariaDB
--- Versi PHP: 8.1.2
+-- Versi PHP: 8.1.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -71,7 +71,7 @@ CREATE TABLE `mobil` (
 INSERT INTO `mobil` (`id_mobil`, `nama`, `merk`, `no_polisi`, `th_keluaran`, `bahan_bakar`, `cc_mobil`, `warna_mobil`, `harga_sewa`, `status`, `delete_at`) VALUES
 (1, 'Avanza', 'Toyota', 'AD 7657 AJ', 2010, 'Bensin', '1200', 'Hitam', 300000, 'Tidak Ada', NULL),
 (5, 'w', 'asasa', 'q', 0, 'q', 'q', 'q', 22, 'Ada', '2023-07-10 19:21:24'),
-(6, 'Xenia', 'Daihatsu', 'AD 4 SP', 2010, 'Bensin', '1000', 'Hitam', 300000, 'Ada', NULL);
+(6, 'Xenia', 'Daihatsu', 'AD 4 SP', 2010, 'Bensin', '1000', 'Hitam', 200000, 'Ada', NULL);
 
 -- --------------------------------------------------------
 
@@ -141,11 +141,13 @@ CREATE TABLE `transaksi_pinjam` (
   `id_user` int(11) DEFAULT NULL,
   `id_mobil` int(11) NOT NULL,
   `nama_user` varchar(255) DEFAULT NULL,
+  `status_pinjam` enum('Booking','Dipinjam','Kembali') NOT NULL,
   `tgl_pinjam` datetime NOT NULL,
   `tgl_pesan` datetime NOT NULL,
   `tgl_kembali` datetime NOT NULL,
   `telepon` varchar(15) NOT NULL,
   `jaminan` enum('KTP','SIM C','Passport','KK','Kendaraan Bermotor','BPKB') NOT NULL,
+  `sopir` enum('Iya','Tidak') NOT NULL,
   `id_sopir` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -154,9 +156,10 @@ CREATE TABLE `transaksi_pinjam` (
 -- Dumping data untuk tabel `transaksi_pinjam`
 --
 
-INSERT INTO `transaksi_pinjam` (`id_pinjam`, `id_user`, `id_mobil`, `nama_user`, `tgl_pinjam`, `tgl_pesan`, `tgl_kembali`, `telepon`, `jaminan`, `id_sopir`, `created_at`) VALUES
-(4, 2, 1, NULL, '2023-07-14 01:24:08', '2023-07-14 01:24:08', '2023-07-15 01:24:08', '', 'KTP', NULL, '2023-07-13 20:24:08'),
-(9, NULL, 6, 'rtyu', '2023-07-14 02:54:00', '2023-07-14 02:54:00', '0000-00-00 00:00:00', '08979098608', 'KTP', NULL, NULL);
+INSERT INTO `transaksi_pinjam` (`id_pinjam`, `id_user`, `id_mobil`, `nama_user`, `status_pinjam`, `tgl_pinjam`, `tgl_pesan`, `tgl_kembali`, `telepon`, `jaminan`, `sopir`, `id_sopir`, `created_at`) VALUES
+(4, 2, 1, NULL, 'Booking', '2023-07-14 01:24:08', '2023-07-14 01:24:08', '2023-07-15 01:24:08', '', 'KTP', 'Iya', NULL, '2023-07-13 20:24:08'),
+(9, NULL, 6, 'rtyu', 'Booking', '2023-07-14 02:54:00', '2023-07-14 02:54:00', '0000-00-00 00:00:00', '08979098608', 'KTP', 'Iya', NULL, NULL),
+(10, NULL, 1, 'Haris', 'Booking', '2023-07-25 21:46:51', '2023-07-25 21:46:51', '2023-07-26 21:46:51', '092992828272', 'BPKB', 'Tidak', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -271,7 +274,7 @@ ALTER TABLE `transaksi_kembali`
 -- AUTO_INCREMENT untuk tabel `transaksi_pinjam`
 --
 ALTER TABLE `transaksi_pinjam`
-  MODIFY `id_pinjam` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_pinjam` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
