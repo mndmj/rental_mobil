@@ -31,11 +31,11 @@
                         ?>
                         <tr>
                             <td><?= $no++ ?></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td><?= $dtTransaksi['nama_user'] ?></td>
+                            <td><?= date("d/m/Y H:i:s", strtotime($dtTransaksi['tgl_pesan'])) ?></td>
+                            <td><?= date("d/m/Y H:i:s", strtotime($dtTransaksi['tgl_pinjam'])) ?></td>
+                            <td><?= $dtTransaksi['telepon'] ?></td>
+                            <td><?= $dtTransaksi['jaminan'] ?></td>
                         </tr>
                         <?php //}  
                         ?>
@@ -71,14 +71,14 @@
                             ?>
                             <tr>
                                 <td><?= $no++ ?></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td><?= $dtMobil['nama'] ?></td>
+                                <td><?= $dtMobil['merk'] ?></td>
+                                <td><?= $dtMobil['no_polisi'] ?></td>
+                                <td><?= $dtMobil['th_keluaran'] ?></td>
+                                <td><?= $dtMobil['bahan_bakar'] ?></td>
+                                <td><?= $dtMobil['cc_mobil'] ?></td>
+                                <td><?= $dtMobil['warna_mobil'] ?></td>
+                                <td><?= $dtMobil['harga_sewa'] ?>/Hari</td>
                             </tr>
                             <?php //}  
                             ?>

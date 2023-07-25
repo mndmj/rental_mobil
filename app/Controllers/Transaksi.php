@@ -41,15 +41,77 @@ class Transaksi extends BaseController
                 ->findAll(),
             'mobil' => $this->ModelMobil->where('status', 'Ada')->findAll(),
             'jaminan' => $this->jaminan,
+            'biayaSopir' => 100000
         ];
         return view('admin/view_pinjam.php', $data);
     }
 
-    public function detail_pinjam()
+    public function savepinjam()
     {
+        if (!$this->validate([
+            'nama_mobil' => 'required',
+            'nama_user' => 'required',
+            'ck_tipe_pinjam' => 'required|in_list[sekarang,booking]',
+            'durasi_pinjam' => 'required|greater_than_equal_to[1]',
+            'telepon' => 'required|numeric|min_length[10]|max_length[15]',
+            'sopir' => 'required|in_list[Iya,Tidak]',
+            'jaminan' => 'required|in_list[KTP,SIM C,Passport,KK,Kendaraan Bermotor,BPKB]'
+        ])) {
+            dd($this->request->getPost());
+            session()->setFlashdata('danger', 'Data tidak valid');
+            return $this->redirect();
+        }
+        $dtMobil = $this->ModelMobil->where('no_polisi', $this->request->getPost('nama_mobil'))->first();
+        if (empty($dtMobil)) {
+            session()->setFlashdata('danger', 'Data Mobil tidak ditemukan');
+            return $this->redirect();
+        }
+        $data = [
+            'id_mobil' => $dtMobil['id_mobil'],
+            'nama_user' => $this->request->getPost('nama_user'),
+            'tgl_pinjam' => $this->request->getPost('tgl_pinjam'),
+            'tgl_pesan' => date("Y-m-d H:i:s"),
+            'telepon' => $this->request->getPost('telepon'),
+            'jaminan' => $this->request->getPost('jaminan'),
+            'sopir' => $this->request->getPost('sopir')
+        ];
+        if ($this->request->getPost('ck_tipe_pinjam') == "sekarang") {
+            $data['tgl_pinjam'] = date("Y-m-d H:i:s");
+            $data['tgl_kembali'] = date("Y-m-d H:i:s", strtotime("+" . $this->request->getPost('durasi_pinjam') . " day"));
+        } else {
+            if (!$this->validate([
+                'tgl_pinjam' => 'required|valid_date[Y-m-d H:i:s]'
+            ])) {
+                session()->setFlashdata('danger', 'Ketika booking, tanggal pinjam harus di isi');
+                return $this->redirect();
+            }
+            $data['tgl_kembali'] = date("Y-m-d H:i:s", strtotime($this->request->getPost('tgl_pinjam') . " +" . $this->request->getPost('durasi_pinjam') . " day"));
+        }
+        if ($this->ModelPinjam->insert($data)) {
+            session()->setFlashdata('success', "Data berhasil dimasukan");
+        } else {
+            session()->setFlashdata('danger', "Data gagal dimasukan");
+        }
+        return $this->redirect();
+    }
+
+    public function detail($id_pinjam)
+    {
+        $dtTransaksi = $this->ModelPinjam->where('id_pinjam', $id_pinjam)->first();
+        if (empty($dtTransaksi)) {
+            session()->setFlashdata('danger', "Data transaksi tidak ditemukan");
+            return $this->redirect();
+        }
+        $dtMobil = $this->ModelMobil->find($dtTransaksi['id_mobil']);
+        if (empty($dtMobil)) {
+            session()->setFlashdata('danger', "Data mobil tidak ditemukan");
+            return $this->redirect();
+        }
         $data = [
             'title' => 'RentCar',
             'subtitle' => 'Detail Peminjaman',
+            'dtTransaksi' => $dtTransaksi,
+            'dtMobil' => $dtMobil
         ];
         return view('admin/view_detail_pinjam', $data);
     }
