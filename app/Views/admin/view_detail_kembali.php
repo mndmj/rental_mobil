@@ -44,8 +44,8 @@
             </div>
         </div>
         <div class="row mt-4 shadow">
-            <div class="col rounded-0 bg-light p-0">
-                <div class="card rounded-0 bg-secondary">
+            <div class="col bg-light rounded p-0">
+                <div class="card bg-secondary">
                     <div class="card-header">
                         <h3 class="card-title">Detail Kendaraan Disewa</h3>
                     </div>

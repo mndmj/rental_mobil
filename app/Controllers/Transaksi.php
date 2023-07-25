@@ -45,7 +45,7 @@ class Transaksi extends BaseController
         return view('admin/view_pinjam.php', $data);
     }
 
-    public function detail()
+    public function detail_pinjam()
     {
         $data = [
             'title' => 'RentCar',
@@ -102,7 +102,17 @@ class Transaksi extends BaseController
             'kembali' => $this->ModelKembali
                 ->join('transaksi_pinjam', 'transaksi_pinjam.id_pinjam = transaksi_kembali.id_pinjam')
                 ->findAll(),
+            'mobil' => $this->ModelMobil->where('status', 'Ada')->findAll(),
         ];
         return view('admin/view_kembali.php', $data);
+    }
+
+    public function detail_kembali()
+    {
+        $data = [
+            'title' => 'RentCar',
+            'subtitle' => 'Detail Pengembalian',
+        ];
+        return view('admin/view_detail_kembali', $data);
     }
 }

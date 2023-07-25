@@ -38,7 +38,7 @@
                             <td><?= $value['nama_mobil'] ?></td>
                             <td><?= $value['no_polisi'] ?></td>
                             <td>
-                                <button class="btn btn-sm btn-info" data-toggle="modal" onclick="window.location.href='<?= base_url('transaksi/detail') ?>'">
+                                <button class="btn btn-sm btn-info" data-toggle="modal" onclick="window.location.href='<?= base_url('transaksi/detail_pinjam') ?>'">
                                     <i class="fas fa-eye"></i>
                                 </button>
                                 <button class="btn btn-sm btn-outline-danger" data-toggle="modal">
