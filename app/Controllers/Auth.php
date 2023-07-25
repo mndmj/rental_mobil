@@ -31,7 +31,7 @@ class Auth extends BaseController
             $username = $this->request->getPost('username');
             $password = $this->request->getPost('password');
             $cek_login = $this->ModelAuth->login($username, $password);
-            $dtUser = $this->ModelAuth->getDataLogin($username, $password);
+            $dtUser = $this->ModelAuth->get_data_login($username, $password);
             if ($cek_login) {
                 $data = [
                     'id_user' =>  $dtUser[0]['id_user'],

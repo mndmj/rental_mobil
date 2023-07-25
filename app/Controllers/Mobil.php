@@ -4,15 +4,19 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\ModelMobil;
+use App\Models\ModelPinjam;
+use CodeIgniter\RESTful\ResourceController;
 
 class Mobil extends BaseController
 {
     private $ModelMobil = null;
+    private $ModelTransaksi = null;
     private $db = null;
 
     public function __construct()
     {
         $this->ModelMobil = new ModelMobil();
+        $this->ModelTransaksi = new ModelPinjam();
         $this->db = \config\Database::connect();
         helper('form');
     }
@@ -66,5 +70,56 @@ class Mobil extends BaseController
         ];
         $this->ModelMobil->delete($data);
         return redirect()->to('mobil')->with('danger', 'Data berhasil dihapus');
+    }
+
+    public function getfreemobil()
+    {
+        if ($this->request->isAJAX()) {
+            if ($this->validate([
+                'tanggal' => 'required|valid_date',
+                'durasi' => 'required|integer|greater_than_equal_to[1]'
+            ])) {
+                $data = [
+                    'success' => false,
+                    'msg' => 'Data tanggal atau durasi tidak valid',
+                    'data' => null
+                ];
+            } else {
+                $tgl = date("Y-m-d H:i:s", strtotime((string)$this->request->getRawInputVar('tanggal')));
+                $durasi = $this->request->getRawInputVar('durasi');
+                $estimasi = date("Y-m-d H:i:s", strtotime("+$durasi day", strtotime($tgl)));
+                $ignoreMobil = $this->ModelTransaksi->join('mobil', 'mobil.id_mobil=transaksi_pinjam.id_mobil')
+                    ->where("(tgl_pinjam < '$tgl' AND  '$tgl' < tgl_kembali)")
+                    ->orWhere("(tgl_kembali > '$estimasi' AND '$estimasi' > tgl_pinjam)")
+                    ->findAll();
+                $listIgnore = [];
+                foreach ($ignoreMobil as $dt) {
+                    $tmp = [$dt['id_mobil']];
+                    $listIgnore = array_merge($listIgnore, $tmp);
+                }
+                if (count($ignoreMobil) == 0) {
+                    $freeMobil = $this->ModelMobil->select("id_mobil, nama, merk, no_polisi, harga_sewa")->findAll();
+                } else {
+                    $freeMobil = $this->ModelMobil->select("id_mobil, nama, merk, no_polisi, harga_sewa")->whereNotIn('id_mobil', $listIgnore)->findAll();
+                }
+                if (count($freeMobil) == 0) {
+                    $data = [
+                        'success' => false,
+                        'msg' => 'Tidak ada mobil yang free pada tanggal tersebut',
+                        'data' => null
+                    ];
+                } else {
+                    $data = [
+                        'success' => true,
+                        'msg' => 'Silahkan pilih mobilnya',
+                        'data' => $freeMobil
+                    ];
+                }
+            }
+        } else {
+            return $this->redirect();
+        }
+        header('Content-Type: application/json; charset=utf-8');
+        return json_encode($data);
     }
 }
