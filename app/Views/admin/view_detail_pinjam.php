@@ -31,10 +31,10 @@
                         ?>
                         <tr>
                             <td><?= $no++ ?></td>
-                            <td><?= $dtTransaksi['nama_user'] ?></td>
+                            <td><?= (is_null($dtTransaksi['nama_user'])) ? $dtTransaksi['peminjam'] : $dtTransaksi['nama_user'] ?></td>
                             <td><?= date("d/m/Y H:i:s", strtotime($dtTransaksi['tgl_pesan'])) ?></td>
                             <td><?= date("d/m/Y H:i:s", strtotime($dtTransaksi['tgl_pinjam'])) ?></td>
-                            <td><?= $dtTransaksi['telepon'] ?></td>
+                            <td><?= (is_null($dtTransaksi['telepon_user'])) ? $dtTransaksi['telp_peminjam'] : $dtTransaksi['telepon_user'] ?></td>
                             <td><?= $dtTransaksi['jaminan'] ?></td>
                         </tr>
                         <?php //}  

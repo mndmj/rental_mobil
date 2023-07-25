@@ -33,7 +33,7 @@ class Transaksi extends BaseController
             'title' => 'RentCar',
             'subtitle' => 'Peminjaman',
             'pinjam' => $this->ModelPinjam
-                ->select('*, detail_user.nama as nama_user, mobil.nama as nama_mobil, detail_user.telepon as telepon_user, sopir.telepon as telepon_sopir')
+                ->select('*, detail_user.nama as nama_user, mobil.nama as nama_mobil, detail_user.telepon as telepon_user, sopir.telepon as telepon_sopir, transaksi_pinjam.nama_user as peminjam, transaksi_pinjam.telepon as telp_peminjam')
                 ->join('user', 'user.id_user = transaksi_pinjam.id_user', 'left')
                 ->join('detail_user', 'detail_user.id_user = user.id_user', 'left')
                 ->join('mobil', 'mobil.id_mobil = transaksi_pinjam.id_mobil')
@@ -97,7 +97,10 @@ class Transaksi extends BaseController
 
     public function detail($id_pinjam)
     {
-        $dtTransaksi = $this->ModelPinjam->where('id_pinjam', $id_pinjam)->first();
+        $dtTransaksi = $this->ModelPinjam->select('*, detail_user.nama as nama_user, detail_user.telepon as telepon_user, transaksi_pinjam.nama_user as peminjam, transaksi_pinjam.telepon as telp_peminjam')
+            ->join('user', 'user.id_user = transaksi_pinjam.id_user', 'left')
+            ->join('detail_user', 'detail_user.id_user = user.id_user', 'left')
+            ->where('id_pinjam', $id_pinjam)->first();
         if (empty($dtTransaksi)) {
             session()->setFlashdata('danger', "Data transaksi tidak ditemukan");
             return $this->redirect();

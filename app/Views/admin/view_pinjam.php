@@ -31,10 +31,10 @@
                     foreach ($pinjam as $key => $value) { ?>
                         <tr>
                             <td><?= $no++ ?></td>
-                            <td><?= $value['nama_user'] ?></td>
+                            <td><?= (is_null($value['nama_user'])) ? $value['peminjam'] : $value['nama_user'] ?></td>
                             <td><?= $value['tgl_pesan'] ?></td>
                             <td><?= $value['tgl_pinjam'] ?></td>
-                            <td><?= $value['telepon_user'] ?></td>
+                            <td><?= (is_null($value['telepon_user'])) ? $value['telp_peminjam'] : $value['telepon_user'] ?></td>
                             <td><?= $value['nama_mobil'] ?></td>
                             <td><?= $value['no_polisi'] ?></td>
                             <td>
