@@ -65,6 +65,8 @@ abstract class BaseController extends Controller
 
     protected $jaminan = ['KTP', 'SIM C', 'Passport', 'KK', 'Kendaraan Bermotor', 'BPKB'];
 
+    protected $dendaPerjam = 20000;
+
     // protected function backWithAlert($key, $alert)
     // {
     //     session()->setFlashdata($key, $alert);

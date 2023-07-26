@@ -31,11 +31,11 @@
                         ?>
                         <tr>
                             <td><?= $no++ ?></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td><?= (is_null($dtTransaksi['nama_user'])) ? $dtTransaksi['peminjam'] : $dtTransaksi['nama_user'] ?></td>
+                            <td><?= date("d/m/Y H:i:s", strtotime($dtTransaksi['tgl_pesan'])) ?></td>
+                            <td><?= date("d/m/Y H:i:s", strtotime($dtTransaksi['tgl_pinjam'])) ?></td>
+                            <td><?= (is_null($dtTransaksi['telepon_user'])) ? $dtTransaksi['telp_peminjam'] : $dtTransaksi['telepon_user'] ?></td>
+                            <td><?= $dtTransaksi['jaminan'] ?></td>
                         </tr>
                         <?php //}  
                         ?>
@@ -71,14 +71,14 @@
                             ?>
                             <tr>
                                 <td><?= $no++ ?></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td><?= $dtMobil['nama'] ?></td>
+                                <td><?= $dtMobil['merk'] ?></td>
+                                <td><?= $dtMobil['no_polisi'] ?></td>
+                                <td><?= $dtMobil['th_keluaran'] ?></td>
+                                <td><?= $dtMobil['bahan_bakar'] ?></td>
+                                <td><?= $dtMobil['cc_mobil'] ?></td>
+                                <td><?= $dtMobil['warna_mobil'] ?></td>
+                                <td><?= $dtMobil['harga_sewa'] ?>/Hari</td>
                             </tr>
                             <?php //}  
                             ?>
@@ -88,6 +88,34 @@
             </div>
         </div>
     </div>
+</div>
+
+<div>
+    <?php
+    if (!is_null($dtKembali)) {
+        $date = $dtKembali['tgl_kembali'];
+    } else {
+        $date = date("Y-m-d H:i:s");
+    }
+    $sisa = (int)((strtotime($dtTransaksi['tgl_kembali']) - strtotime($date)) / 3600);
+    ?>
+    Pinjam : <?= $dtTransaksi['tgl_pinjam'] ?><br>
+    Kembali : <?= $dtTransaksi['tgl_kembali'] ?><br>
+    Dikembalikan : <?= (is_null($dtKembali)) ? 'Belum' : $date ?><br>
+    Sisa Durasi : <?= ($sisa >= 0) ? $sisa : 0 ?> Jam<br>
+    Keterlambatan : <?= ($sisa < 0) ? '<span class="text-danger">' . $sisa . '</span>' : 0 ?> Jam<br>
+    Denda : Rp <?= ($sisa < 0) ? '<span class="text-danger">' . ($sisa * -1 * 20000) . '</span>' : 0 ?><br>
+    <?php if ($dtTransaksi['status_pinjam'] == "Dipinjam") : ?>
+        <form id="formPengembalian" method="post" action="<?= base_url('transaksi/pengembalian') ?>">
+            <textarea name="kondisi_mobil" id="kondisi_mobil" class="form-control" rows="3" placeholder="Kondisi Mobil"></textarea>
+            <input type="text" name="denda_kerusakan" id="denda_kerusakan" class="form-control" placeholder="Denda kerusakan" required>
+            <textarea name="kerusakan" id="kerusakan" class="form-control" rows="3" placeholder="Kerusakan"></textarea>
+            <div class="form-check-inline">
+                <input type="checkbox" name="crashCar" id="crashCar" value="1"> <label for="crashCar">Mobil rusak</label>
+            </div>
+        </form>
+        <button class="btn btn-primary" onclick="pengembalian()">Kembalikan Mobil</button>
+    <?php endif ?>
 </div>
 
 <!-- Modal Edit Data -->
@@ -180,6 +208,27 @@
         bPaginate: false,
         bInfo: false
     });
+
+    <?php if ($dtTransaksi['status_pinjam'] == "Dipinjam") : ?>
+
+        function pengembalian() {
+            Swal.fire({
+                title: 'Rent Car',
+                text: "Apakah anda yakin mobil telah dikembalikan?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Lanjutkan'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    let id = $("<input type='hidden' name='id_pinjam' value='<?= $dtTransaksi['id_pinjam'] ?>'>")
+                    $("#formPengembalian").append(id);
+                    $("#formPengembalian").submit();
+                }
+            })
+        }
+    <?php endif ?>
 </script>
 
 <?= $this->endSection() ?>

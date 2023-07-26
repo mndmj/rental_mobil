@@ -31,14 +31,14 @@
                     foreach ($kembali as $key => $value) { ?>
                         <tr>
                             <td><?= $no++ ?></td>
-                            <td><?= $value['nama_user'] ?></td>
+                            <td><?= (is_null($value['nama_user'])) ? $value['peminjam'] : $value['nama_user'] ?></td>
                             <td><?= $value['tgl_pesan'] ?></td>
                             <td><?= $value['tgl_pinjam'] ?></td>
-                            <td><?= $value['telepon_user'] ?></td>
+                            <td><?= (is_null($value['telepon_user'])) ? $value['telp_peminjam'] : $value['telepon_user'] ?></td>
                             <td><?= $value['nama_mobil'] ?></td>
                             <td><?= $value['no_polisi'] ?></td>
                             <td>
-                                <button class="btn btn-sm btn-info" data-toggle="modal" onclick="window.location.href='<?= base_url('transaksi/detail') ?>'">
+                                <button class="btn btn-sm btn-info" data-toggle="modal" onclick="window.location.href='<?= base_url('transaksi/detail_kembali/' . $value['id_pinjam']) ?>'">
                                     <i class="fas fa-eye"></i>
                                 </button>
                                 <button class="btn btn-sm btn-outline-danger" data-toggle="modal">
@@ -78,14 +78,14 @@
                             </thead>
                             <tbody>
                                 <?php $no = 1;
-                                foreach ($kembali as $key => $value) { ?>
+                                foreach ($dtBelumKembali as $key => $value) { ?>
                                     <tr>
                                         <td><?= $no++ ?></td>
-                                        <td><?= $value['nama_user'] ?></td>
+                                        <td><?= (is_null($value['nama_user'])) ? $value['peminjam'] : $value['nama_user'] ?></td>
                                         <td><?= $value['nama_mobil'] ?></td>
                                         <td><?= $value['no_polisi'] ?></td>
                                         <td>
-                                            <button class="btn btn-sm btn-info" data-toggle="modal" onclick="window.location.href='<?= base_url('transaksi/detail_kembali') ?>'">
+                                            <button class="btn btn-sm btn-info" data-toggle="modal" onclick="window.location.href='<?= base_url('transaksi/detail_kembali/' . $value['id_pinjam']) ?>'">
                                                 <i class="fas fa-eye"></i>
                                             </button>
                                         </td>
