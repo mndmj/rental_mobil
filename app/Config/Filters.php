@@ -36,6 +36,7 @@ class Filters extends BaseConfig
                     '',
                     'auth', 'auth/*',
                     'home', 'home/*',
+                    'api*'
                 ]
             ]
         ],

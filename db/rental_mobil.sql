@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 26 Jul 2023 pada 11.16
+-- Waktu pembuatan: 26 Jul 2023 pada 20.20
 -- Versi server: 10.4.22-MariaDB
--- Versi PHP: 8.1.12
+-- Versi PHP: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -42,7 +42,8 @@ CREATE TABLE `detail_user` (
 --
 
 INSERT INTO `detail_user` (`id_detail_user`, `id_user`, `nik`, `nama`, `telepon`, `alamat`, `jk`) VALUES
-(1, 2, '331332870820', 'Hartono', '08968746549', 'Krpdn', 'Laki-laki');
+(1, 2, '331332870820', 'Hartono', '08968746549', 'Krpdn', 'Laki-laki'),
+(2, 3, '2524242424', 'aaa', '08979086055', 'aaa', 'Laki-laki');
 
 -- --------------------------------------------------------
 
@@ -54,6 +55,7 @@ CREATE TABLE `mobil` (
   `id_mobil` int(11) NOT NULL,
   `nama` varchar(30) NOT NULL,
   `merk` varchar(30) NOT NULL,
+  `foto_mobil` varchar(255) NOT NULL,
   `no_polisi` varchar(10) NOT NULL,
   `th_keluaran` int(4) NOT NULL,
   `bahan_bakar` varchar(10) NOT NULL,
@@ -68,10 +70,10 @@ CREATE TABLE `mobil` (
 -- Dumping data untuk tabel `mobil`
 --
 
-INSERT INTO `mobil` (`id_mobil`, `nama`, `merk`, `no_polisi`, `th_keluaran`, `bahan_bakar`, `cc_mobil`, `warna_mobil`, `harga_sewa`, `status`, `delete_at`) VALUES
-(1, 'Avanza', 'Toyota', 'AD 7657 AJ', 2010, 'Bensin', '1200', 'Hitam', 300000, 'Ada', NULL),
-(5, 'w', 'asasa', 'q', 0, 'q', 'q', 'q', 22, 'Ada', '2023-07-10 19:21:24'),
-(6, 'Xenia', 'Daihatsu', 'AD 4 SP', 2010, 'Bensin', '1000', 'Hitam', 200000, 'Ada', NULL);
+INSERT INTO `mobil` (`id_mobil`, `nama`, `merk`, `foto_mobil`, `no_polisi`, `th_keluaran`, `bahan_bakar`, `cc_mobil`, `warna_mobil`, `harga_sewa`, `status`, `delete_at`) VALUES
+(1, 'Avanza', 'Toyota', '1690393813_592f813b6e81cbf195cf.jpg', 'AD 7657 AJ', 2010, 'Bensin', '1200', 'Hitam', 300000, 'Ada', NULL),
+(6, 'Xenia', 'Daihatsu', '', 'AD 4 SP', 2010, 'Bensin', '1000', 'Hitam', 200000, 'Ada', NULL),
+(7, 'Gg', 'honda', '1690393452_f39ede9ec7738c301b5c.jpg', 'AD 4 DI', 2010, 'Udara', '90000', 'Hitam St', 300000, 'Ada', '2023-07-27 00:51:09');
 
 -- --------------------------------------------------------
 
@@ -169,7 +171,8 @@ CREATE TABLE `transaksi_pinjam` (
 INSERT INTO `transaksi_pinjam` (`id_pinjam`, `id_user`, `id_mobil`, `nama_user`, `status_pinjam`, `tgl_pinjam`, `tgl_pesan`, `tgl_kembali`, `telepon`, `jaminan`, `sopir`, `id_sopir`, `created_at`) VALUES
 (4, 2, 1, NULL, 'Booking', '2023-07-14 01:24:08', '2023-07-14 01:24:08', '2023-07-15 01:24:08', '', 'KTP', 'Iya', NULL, '2023-07-13 20:24:08'),
 (9, NULL, 6, 'rtyu', 'Dipinjam', '2023-07-14 02:54:00', '2023-07-14 02:54:00', '0000-00-00 00:00:00', '08979098608', 'KTP', 'Iya', NULL, NULL),
-(10, NULL, 1, 'Haris', 'Kembali', '2023-07-25 21:46:51', '2023-07-25 21:46:51', '2023-07-26 21:46:51', '092992828272', 'BPKB', 'Tidak', NULL, NULL);
+(10, NULL, 1, 'Haris', 'Kembali', '2023-07-25 21:46:51', '2023-07-25 21:46:51', '2023-07-26 21:46:51', '092992828272', 'BPKB', 'Tidak', NULL, NULL),
+(11, NULL, 1, 'Ikhsan', 'Dipinjam', '2023-08-04 10:00:00', '2023-07-26 16:42:53', '2023-08-05 10:00:00', '089790869759', 'KTP', 'Tidak', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -192,7 +195,8 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id_user`, `username`, `password`, `email`, `id_role`, `delete_at`) VALUES
 (1, 'admin', '12345678', 'admin@gmail.com', 1, NULL),
-(2, 'Hartono', '12345678', 'h@g.com', 2, NULL);
+(2, 'Hartono', '12345678', 'h@g.com', 2, NULL),
+(3, 'aaa', '12345678', 'a@gmail.com', 2, NULL);
 
 --
 -- Indexes for dumped tables
@@ -254,13 +258,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `detail_user`
 --
 ALTER TABLE `detail_user`
-  MODIFY `id_detail_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_detail_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `mobil`
 --
 ALTER TABLE `mobil`
-  MODIFY `id_mobil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_mobil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `role`
@@ -284,13 +288,13 @@ ALTER TABLE `transaksi_kembali`
 -- AUTO_INCREMENT untuk tabel `transaksi_pinjam`
 --
 ALTER TABLE `transaksi_pinjam`
-  MODIFY `id_pinjam` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_pinjam` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)

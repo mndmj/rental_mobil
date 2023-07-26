@@ -35,7 +35,7 @@ class APIAuth extends ResourceController
             ];
         } else {
             $dtUser = $this->ModelUser->where('username', $this->request->getPost('username'))
-                ->where('password', md5((string)$this->request->getPost('password')))
+                ->where('password', $this->request->getPost('password'))
                 ->where('id_role', '2')
                 ->first();
             if (empty($dtUser)) {
@@ -53,7 +53,7 @@ class APIAuth extends ResourceController
         return $this->respond($msg);
     }
 
-    public function regist()
+    public function register()
     {
         if (!$this->validate([
             'username' => 'required|max_length[16]|is_unique[user.username]',
@@ -63,7 +63,7 @@ class APIAuth extends ResourceController
             'nama' => 'required|max_length[30]',
             'telepon' => 'required|max_length[15]|numeric|is_unique[detail_user.telepon]',
             'alamat' => 'required',
-            'jk' => 'required|in_list[Laki-laki,Perempuan'
+            'jk' => 'required|in_list[Laki-laki,Perempuan]'
         ])) {
             $msg = [
                 'success' => false,

@@ -12,5 +12,5 @@ class ModelMobil extends Model
     protected $returnType       = 'array';
     protected $deletedField     = 'delete_at';
     protected $useSoftDeletes   = true;
-    protected $allowedFields    = ['nama', 'merk', 'no_polisi', 'th_keluaran', 'bahan_bakar', 'cc_mobil', 'warna_mobil', 'harga_sewa', 'status', 'delete_at'];
+    protected $allowedFields    = ['nama', 'merk', 'foto_mobil', 'no_polisi', 'th_keluaran', 'bahan_bakar', 'cc_mobil', 'warna_mobil', 'harga_sewa', 'status', 'delete_at'];
 }

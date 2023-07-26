@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\ModelMobil;
 use App\Models\ModelPinjam;
 use CodeIgniter\RESTful\ResourceController;
+use Exception;
 
 class Mobil extends BaseController
 {
@@ -32,39 +33,63 @@ class Mobil extends BaseController
 
     public function insert_data()
     {
-        $data = [
-            'nama' => $this->request->getPost('nama'),
-            'merk' => $this->request->getPost('merk'),
-            'no_polisi' => $this->request->getPost('no_polisi'),
-            'th_keluaran' => $this->request->getPost('th_keluaran'),
-            'bahan_bakar' => $this->request->getPost('bahan_bakar'),
-            'cc_mobil' => $this->request->getPost('cc_mobil'),
-            'warna_mobil' => $this->request->getPost('warna_mobil'),
-            'harga_sewa' => $this->request->getPost('harga_sewa'),
-        ];
-        $this->ModelMobil->insert($data);
-        return redirect()->to('mobil')->with('success', 'Data berhasil ditambahkan');
+        $foto = $this->request->getFile('foto_mobil');
+        $nameFoto = $foto->getRandomName();
+        $foto->move('img/foto_mobil/', $nameFoto);
+        if ($foto->hasMoved()) {
+            $data = [
+                'nama' => $this->request->getPost('nama'),
+                'merk' => $this->request->getPost('merk'),
+                'foto_mobil' => $nameFoto,
+                'no_polisi' => $this->request->getPost('no_polisi'),
+                'th_keluaran' => $this->request->getPost('th_keluaran'),
+                'bahan_bakar' => $this->request->getPost('bahan_bakar'),
+                'cc_mobil' => $this->request->getPost('cc_mobil'),
+                'warna_mobil' => $this->request->getPost('warna_mobil'),
+                'harga_sewa' => $this->request->getPost('harga_sewa'),
+            ];
+            $this->ModelMobil->insert($data);
+            return redirect()->to('mobil')->with('success', 'Data berhasil ditambahkan');
+        }
+        return redirect()->to('mobil')->with('danger', 'Data gagal ditambahkan');
     }
 
     public function edit_data($id_mobil)
     {
-        $data = [
-            'nama' => $this->request->getPost('nama'),
-            'merk' => $this->request->getPost('merk'),
-            'no_polisi' => $this->request->getPost('no_polisi'),
-            'th_keluaran' => $this->request->getPost('th_keluaran'),
-            'bahan_bakar' => $this->request->getPost('bahan_bakar'),
-            'cc_mobil' => $this->request->getPost('cc_mobil'),
-            'warna_mobil' => $this->request->getPost('warna_mobil'),
-            'harga_sewa' => $this->request->getPost('harga_sewa'),
-            'status' => $this->request->getPost('status'),
-        ];
-        $this->ModelMobil->update($id_mobil, $data);
-        return redirect()->to('mobil')->with('warning', 'Data berhasil diedit');
+        $foto = $this->request->getFile('foto_mobil');
+        $nameFoto = $foto->getRandomName();
+        $foto->move('img/foto_mobil/', $nameFoto);
+        if ($foto->hasMoved()) {
+            $dtMobil = $this->ModelMobil->find($id_mobil);
+            try {
+                unlink('img/foto_mobil/' . $dtMobil['foto_mobil']);
+            } catch (Exception $e) {
+            }
+            $data = [
+                'nama' => $this->request->getPost('nama'),
+                'merk' => $this->request->getPost('merk'),
+                'foto_mobil' => $nameFoto,
+                'no_polisi' => $this->request->getPost('no_polisi'),
+                'th_keluaran' => $this->request->getPost('th_keluaran'),
+                'bahan_bakar' => $this->request->getPost('bahan_bakar'),
+                'cc_mobil' => $this->request->getPost('cc_mobil'),
+                'warna_mobil' => $this->request->getPost('warna_mobil'),
+                'harga_sewa' => $this->request->getPost('harga_sewa'),
+                'status' => $this->request->getPost('status'),
+            ];
+            $this->ModelMobil->update($id_mobil, $data);
+            return redirect()->to('mobil')->with('warning', 'Data berhasil diedit');
+        }
+        return redirect()->to('mobil')->with('danger', 'Data gagal diedit');
     }
 
     public function delete_data($id_mobil)
     {
+        $dtMobil = $this->ModelMobil->find($id_mobil);
+        try {
+            unlink('img/foto_mobil/' . $dtMobil['foto_mobil']);
+        } catch (Exception $e) {
+        }
         $data = [
             'id_mobil' => $id_mobil,
         ];

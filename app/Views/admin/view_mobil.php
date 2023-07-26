@@ -16,7 +16,8 @@
             <table class="table table-sm" id="tbl_mobil">
                 <thead>
                     <tr>
-                        <th width="50px">#</th>
+                        <th width="10px">#</th>
+                        <th>Foto Mobil</th>
                         <th>Nama Mobil</th>
                         <th>Merk</th>
                         <th>No Polisi</th>
@@ -34,6 +35,9 @@
                     foreach ($mobil as $key => $value) { ?>
                         <tr>
                             <td><?= $no++ ?></td>
+                            <td>
+                                <img src="<?= base_url("img/foto_mobil/" . $value['foto_mobil']) ?>" width="150px">
+                            </td>
                             <td><?= $value['nama'] ?></td>
                             <td><?= $value['merk'] ?></td>
                             <td><?= $value['no_polisi'] ?></td>
@@ -69,8 +73,14 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <?= form_open('mobil/insert_data') ?>
+            <?= form_open_multipart('mobil/insert_data') ?>
             <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <label for="foto_mobil">Foto Mobil</label>
+                        <input type="file" name="foto_mobil" id="foto_mobil">
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-6">
                         <div class="form-group">
@@ -129,7 +139,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <?= form_open('mobil/edit_data/' . $value['id_mobil']) ?>
+                <?= form_open_multipart('mobil/edit_data/' . $value['id_mobil']) ?>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-6">
@@ -173,6 +183,12 @@
                             <div class="form-group">
                                 <label for="">Harga Sewa Mobil</label>
                                 <input name="harga_sewa" value="<?= $value['harga_sewa'] ?>" type="number" class="form-control" placeholder="Harga Sewa Mobil" required>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <label for="foto_mobil">Foto Mobil</label>
+                                    <input type="file" name="foto_mobil" id="foto_mobil">
+                                </div>
                             </div>
                         </div>
                     </div>

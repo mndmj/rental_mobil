@@ -24,7 +24,7 @@ class APIMobil extends ResourceController
     public function getall()
     {
         return $this->respond(
-            $this->ModelMobil->select('nama, merk, no_polisi, th_keluaran, bahan_bakar, cc_mobil, warna_mobil,harga_sewa, status')->findAll()
+            $this->ModelMobil->select('nama, merk, no_polisi, foto_mobil, th_keluaran, bahan_bakar, cc_mobil, warna_mobil,harga_sewa, status')->findAll()
         );
     }
 }
