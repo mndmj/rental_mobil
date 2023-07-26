@@ -36,4 +36,24 @@ class APIAccount extends ResourceController
         }
         return $this->respond($dtUser);
     }
+
+    public function getbylogin()
+    {
+        if (!$this->validate([
+            'username' => 'required',
+            'password' => 'required'
+        ])) {
+            return $this->fail("Data tidak valid");
+        }
+        $dtUser = $this->ModelUser->select('user.id_user as id_user, username, email, nik, nama, telepon, jk')
+            ->join('detail_user', 'detail_user.id_user = user.id_user')
+            ->where('username', $this->request->getPost('username'))
+            ->where('password', $this->request->getPost('password'))
+            ->where('id_role', '2')
+            ->first();
+        if (empty($dtUser)) {
+            return $this->fail("Data pengguna tidak ditemukan");
+        }
+        return $this->respond($dtUser);
+    }
 }
