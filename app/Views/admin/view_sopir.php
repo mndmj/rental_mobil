@@ -83,8 +83,7 @@
                 </div>
             </div>
             <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"></button>
-                <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
+                <button type="submit" class="btn btn-primary btn-sm mx-auto px-5">Simpan</button>
             </div>
             <?= form_close() ?>
         </div>
@@ -126,8 +125,7 @@
                     </div>
                 </div>
                 <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"></button>
-                    <button type="submit" class="btn btn-warning btn-sm">Ubah</button>
+                    <button type="submit" class="btn btn-warning btn-sm mx-auto px-5">Ubah</button>
                 </div>
                 <?= form_close() ?>
             </div>
@@ -150,8 +148,7 @@
                     Apakah Anda ingin menghapus data <b><?= $value['nama'] ?></b>?
                 </div>
                 <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-default btn-sm" data-bs-dismiss="modal"></button>
-                    <a href="<?= base_url('sopir/delete_data/' . $value['id_sopir']) ?>" class="btn btn-danger btn-sm">Hapus</a>
+                    <a href="<?= base_url('sopir/delete_data/' . $value['id_sopir']) ?>" class="btn btn-danger btn-sm mx-auto px-5">Hapus</a>
                 </div>
             </div>
         </div>

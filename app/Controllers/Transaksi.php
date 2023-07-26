@@ -81,8 +81,9 @@ class Transaksi extends BaseController
             $data['status_pinjam'] = "Dipinjam";
         } else {
             if (!$this->validate([
-                'tgl_pinjam' => 'required|valid_date[Y-m-d H:i:s]'
+                'tgl_pinjam' => 'required'
             ])) {
+                dd($this->validator->getErrors(), $this->request->getPost('tgl_pinjam'));
                 session()->setFlashdata('danger', 'Ketika booking, tanggal pinjam harus di isi');
                 return $this->redirect();
             }

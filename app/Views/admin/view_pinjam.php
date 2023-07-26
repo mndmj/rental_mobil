@@ -127,9 +127,9 @@
                 </div>
             </div>
             <div class="modal-footer justify-content-between">
-                <h5 class="my-auto">
+                <h6 class="my-auto">
                     Total Bayar : <span id="lblTotalBayar"></span>
-                </h5>
+                </h6>
                 <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
             </div>
             <?= form_close() ?>
