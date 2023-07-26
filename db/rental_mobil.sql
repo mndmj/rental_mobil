@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 26 Jul 2023 pada 20.20
+-- Waktu pembuatan: 26 Jul 2023 pada 22.57
 -- Versi server: 10.4.22-MariaDB
--- Versi PHP: 8.1.2
+-- Versi PHP: 8.1.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -43,7 +43,8 @@ CREATE TABLE `detail_user` (
 
 INSERT INTO `detail_user` (`id_detail_user`, `id_user`, `nik`, `nama`, `telepon`, `alamat`, `jk`) VALUES
 (1, 2, '331332870820', 'Hartono', '08968746549', 'Krpdn', 'Laki-laki'),
-(2, 3, '2524242424', 'aaa', '08979086055', 'aaa', 'Laki-laki');
+(2, 3, '2524242424', 'aaa', '08979086055', 'aaa', 'Laki-laki'),
+(3, 4, '1234567890123456', 'Wahyudi', '082992826252', 'Karanganyar', 'Laki-laki');
 
 -- --------------------------------------------------------
 
@@ -184,7 +185,7 @@ CREATE TABLE `user` (
   `id_user` int(11) NOT NULL,
   `username` varchar(16) NOT NULL,
   `password` varchar(16) NOT NULL,
-  `email` varchar(16) NOT NULL,
+  `email` varchar(255) NOT NULL,
   `id_role` int(11) NOT NULL,
   `delete_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -196,7 +197,8 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id_user`, `username`, `password`, `email`, `id_role`, `delete_at`) VALUES
 (1, 'admin', '12345678', 'admin@gmail.com', 1, NULL),
 (2, 'Hartono', '12345678', 'h@g.com', 2, NULL),
-(3, 'aaa', '12345678', 'a@gmail.com', 2, NULL);
+(3, 'aaa', '12345678', 'a@gmail.com', 2, NULL),
+(4, 'yudist11', '12345678', 'wahyudist123@gma', 2, NULL);
 
 --
 -- Indexes for dumped tables
@@ -258,7 +260,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `detail_user`
 --
 ALTER TABLE `detail_user`
-  MODIFY `id_detail_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_detail_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `mobil`
@@ -294,7 +296,7 @@ ALTER TABLE `transaksi_pinjam`
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
