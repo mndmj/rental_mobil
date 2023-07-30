@@ -6,9 +6,11 @@
         <div class="card-header">
             <h3 class="card-title">Daftar <?= $subtitle ?></h3>
             <div class="card-tools">
-                <button class="btn btn-sm btn-outline-light" data-toggle="modal" data-target="#sopir">
-                    <i class="fa fa-plus" aria-hidden="true"></i> Sopir
-                </button>
+                <?php if (strtolower($dtTransaksi['sopir']) == "iya" && is_null($dtTransaksi['id_sopir']) && strtolower($dtTransaksi['status_pinjam']) != "kembali") : ?>
+                    <button class="btn btn-sm btn-outline-light" data-toggle="modal" data-target="#addSopir">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Sopir
+                    </button>
+                <?php endif ?>
                 <button class="btn btn-sm btn-warning" data-toggle="modal" data-target="#edit">
                     <i class="fa fa-pen" aria-hidden="true"></i> Edit
                 </button>
@@ -173,65 +175,65 @@
 ?>
 
 <!-- Modal Tambah Sopir -->
-<?php //foreach ($pinjam as $key => $value) { 
-?>
-<div class="modal fade" id="sopir<?php //$value['id_pinjam'] 
-                                    ?>">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header bg-light">
-                <h4 class="modal-title">Tambah Sopir</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <?php //form_open('transaksi/edit_data/' . $value['id_pinjam']) 
-            ?>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-12">
-                        <table class="table table-sm" id="tbl_sopir">
-                            <thead>
-                                <tr>
-                                    <th width="10px">#</th>
-                                    <th>NIK</th>
-                                    <th>Nama Sopir</th>
-                                    <th>Alamat</th>
-                                    <th>Telepon</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                // foreach ($sopir as $key => $value) { 
-                                ?>
-                                <tr>
-                                    <td>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" value="">
-                                        </div>
-                                    </td>
-                                    <td>68456789765</td>
-                                    <td>Harits</td>
-                                    <td>Jambu</td>
-                                    <td>089757548980</td>
-                                </tr>
-                                <?php //}  
-                                ?>
-                            </tbody>
-                        </table>
+<form action="<?= base_url('transaksi/addsopir') ?>" method="post">
+    <div class="modal fade" id="addSopir">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-light">
+                    <h4 class="modal-title">Tambah Sopir</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="table table-sm" id="tbl_sopir">
+                                <thead>
+                                    <tr>
+                                        <th width="10px">#</th>
+                                        <th>NIK</th>
+                                        <th>Nama Sopir</th>
+                                        <th>Alamat</th>
+                                        <th>Telepon</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($dtSopir as $sopir) : ?>
+                                        <tr>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="sopirid" id="sopirid<?= $sopir['id_sopir'] ?>" value="<?= $sopir['id_sopir'] ?>" required>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <label for="sopirid<?= $sopir['id_sopir'] ?>"><?= $sopir['nik'] ?></label>
+                                            </td>
+                                            <td>
+                                                <label for="sopirid<?= $sopir['id_sopir'] ?>"><?= $sopir['nama'] ?></label>
+                                            </td>
+                                            <td>
+                                                <label for="sopirid<?= $sopir['id_sopir'] ?>"><?= $sopir['alamat'] ?></label>
+                                            </td>
+                                            <td>
+                                                <label for="sopirid<?= $sopir['id_sopir'] ?>"><?= $sopir['telepon'] ?></label>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
+                <input type="hidden" name="idPinjam" value="<?= $dtTransaksi['id_pinjam'] ?>">
+                <div class="modal-footer justify-content-between">
+                    <button type="submit" class="btn btn-primary btn-sm mx-auto px-5">Submit</button>
+                </div>
             </div>
-            <div class="modal-footer justify-content-between">
-                <button type="submit" class="btn btn-primary btn-sm mx-auto px-5">Submit</button>
-            </div>
-            <?php //form_close() 
-            ?>
         </div>
     </div>
-</div>
-<?php //} 
-?>
+</form>
+
 
 <script>
     $('#tbl_tr').DataTable({

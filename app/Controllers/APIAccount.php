@@ -15,6 +15,7 @@ class APIAccount extends ResourceController
     {
         $this->ModelUser = new ModelUser();
     }
+
     public function index()
     {
         throw PageNotFoundException::forPageNotFound();
@@ -27,7 +28,7 @@ class APIAccount extends ResourceController
         ])) {
             return $this->fail("Data tidak valid");
         }
-        $dtUser = $this->ModelUser->select('username, email, nik, nama, telepon, jk')
+        $dtUser = $this->ModelUser->select('username, email, nik, nama, telepon, jk, alamat')
             ->join('detail_user', 'detail_user.id_user = user.id_user')
             ->where('user.id_user', $this->request->getPost('id_user'))
             ->where('id_role', '2')->first();

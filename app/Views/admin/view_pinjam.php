@@ -20,6 +20,7 @@
                         <th>Nama</th>
                         <th>Tanggal Pesan</th>
                         <th>Tanggal Pinjam</th>
+                        <th>Status Pinjam</th>
                         <th>Telepon</th>
                         <th>Kendaraan</th>
                         <th>No Polisi</th>
@@ -29,19 +30,26 @@
                 <tbody>
                     <?php $no = 1;
                     foreach ($pinjam as $key => $value) { ?>
-                        <tr>
+                        <?php $dateDiff = (int)((strtotime($value['tgl_pinjam']) - strtotime(date("Y-m-d H:i"))) / 3600); ?>
+                        <tr class="<?= (strtolower($value['status_pinjam']) == "booking" && $dateDiff < 0) ? 'bg-warning' : '' ?>">
                             <td><?= $no++ ?></td>
                             <td><?= (is_null($value['nama_user'])) ? $value['peminjam'] : $value['nama_user'] ?></td>
                             <td><?= $value['tgl_pesan'] ?></td>
                             <td><?= $value['tgl_pinjam'] ?></td>
+                            <td><?= $value['status_pinjam'] ?></td>
                             <td><?= (is_null($value['telepon_user'])) ? $value['telp_peminjam'] : $value['telepon_user'] ?></td>
                             <td><?= $value['nama_mobil'] ?></td>
                             <td><?= $value['no_polisi'] ?></td>
                             <td>
-                                <button class="btn btn-sm btn-info" data-toggle="modal" onclick="window.location.href='<?= base_url('transaksi/detail/' . $value['id_pinjam']) ?>'">
+                                <?php if (is_null($value['jaminan'])) : ?>
+                                    <button class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#modalChangeJaminan" onclick="setChangeJaminanData('<?= $value['id_pinjam'] ?>','<?= (is_null($value['nama_user'])) ? $value['peminjam'] : $value['nama_user'] ?>', '<?= $value['telp_peminjam'] ?>')">
+                                        <i class="fas fa-id-card"></i>
+                                    </button>
+                                <?php endif ?>
+                                <button class="btn btn-sm btn-info" onclick="window.location.href='<?= base_url('transaksi/detail/' . $value['id_pinjam']) ?>'">
                                     <i class="fas fa-eye"></i>
                                 </button>
-                                <button class="btn btn-sm btn-outline-danger" data-toggle="modal">
+                                <button class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete<?= $value['id_pinjam'] ?>">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
                             </td>
@@ -136,7 +144,6 @@
         </div>
     </div>
 </div>
-
 <!-- Modal Hapus Data -->
 <?php foreach ($pinjam as $key => $value) { ?>
     <div class="modal fade" id="delete<?= $value['id_pinjam'] ?>">
@@ -159,6 +166,46 @@
         </div>
     </div>
 <?php } ?>
+<!-- Modal -->
+<form action="<?= base_url('transaksi/changejaminan') ?>" method="post" id="formChangeJaminan">
+    <div class="modal fade" id="modalChangeJaminan" tabindex="-1" aria-labelledby="modalChangeJaminanLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalChangeJaminanLabel">Pilih Jaminan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Nama Penyewa</label>
+                        <input class="form-control" id="changeJaminan_nama" disabled readonly required>
+                    </div>
+                    <div class="form-group">
+                        <label>Telp Penyewa</label>
+                        <input class="form-control" id="changeJaminan_telepon" disabled readonly required>
+                    </div>
+                    <div class="form-group">
+                        <label for="changeJaminan">Jaminan</label>
+                        <select class="form-control" name="changeJaminan" id="changeJaminan" required>
+                            <option value="">--Pilih Jaminan--</option>
+                            <?php foreach ($jaminan as $value) : ?>
+                                <option value="<?= $value ?>"><?= $value ?></option>
+                            <?php endforeach ?>
+                        </select>
+                    </div>
+                    <input type="hidden" name="changeJaminan_id" id="changeJaminan_id">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
 
 <script>
     let hargaSewa = [];
@@ -287,6 +334,12 @@
         } else {
             $("#lblTotalBayar").html("Rp 0");
         }
+    }
+
+    function setChangeJaminanData(id, nama, telepon) {
+        $("#changeJaminan_id").attr("value", id);
+        $("#changeJaminan_nama").attr("value", nama);
+        $("#changeJaminan_telepon").attr("value", telepon);
     }
 </script>
 

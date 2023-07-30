@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\ModelKembali;
 use App\Models\ModelMobil;
 use App\Models\ModelPinjam;
+use App\Models\ModelSopir;
 use CodeIgniter\Exceptions\PageNotFoundException;
 
 class Transaksi extends BaseController
@@ -13,12 +14,14 @@ class Transaksi extends BaseController
     private $ModelPinjam = null;
     private $ModelKembali = null;
     private $ModelMobil = null;
+    private $ModelSopir = null;
 
     public function __construct()
     {
         $this->ModelPinjam = new ModelPinjam();
         $this->ModelKembali = new ModelKembali();
         $this->ModelMobil = new ModelMobil();
+        $this->ModelSopir = new ModelSopir();
     }
 
     public function index()
@@ -38,6 +41,7 @@ class Transaksi extends BaseController
                 ->join('detail_user', 'detail_user.id_user = user.id_user', 'left')
                 ->join('mobil', 'mobil.id_mobil = transaksi_pinjam.id_mobil')
                 ->join('sopir', 'sopir.id_sopir = transaksi_pinjam.id_sopir', 'left')
+                ->where('status_pinjam != "kembali"')
                 ->findAll(),
             'mobil' => $this->ModelMobil->where('status', 'Ada')->findAll(),
             'jaminan' => $this->jaminan,
@@ -73,7 +77,8 @@ class Transaksi extends BaseController
             'tgl_pesan' => date("Y-m-d H:i:s"),
             'telepon' => $this->request->getPost('telepon'),
             'jaminan' => $this->request->getPost('jaminan'),
-            'sopir' => $this->request->getPost('sopir')
+            'sopir' => $this->request->getPost('sopir'),
+            'created_at' => date("Y-m-d H:i:s")
         ];
         if ($this->request->getPost('ck_tipe_pinjam') == "sekarang") {
             $data['tgl_pinjam'] = date("Y-m-d H:i:s");
@@ -117,7 +122,8 @@ class Transaksi extends BaseController
             'title' => 'RentCar',
             'subtitle' => 'Detail Peminjaman',
             'dtTransaksi' => $dtTransaksi,
-            'dtMobil' => $dtMobil
+            'dtMobil' => $dtMobil,
+            'dtSopir' => $this->ModelSopir->findAll()
         ];
         return view('admin/view_detail_pinjam', $data);
     }
@@ -283,5 +289,72 @@ class Transaksi extends BaseController
             }
         }
         return $this->redirect();
+    }
+
+    public function changejaminan()
+    {
+        if (!$this->validate([
+            'changeJaminan_id' => 'required|is_natural_no_zero',
+            'changeJaminan' => 'required|in_list[KTP,SIM C,Passport,KK,Kendaraan Bermotor,BPKB]'
+        ])) {
+            session()->setFlashdata('danger', 'Data tidak valid');
+            return $this->redirect();
+        }
+        $dtPeminjaman = $this->ModelPinjam->find($this->request->getPost('changeJaminan_id'));
+        if (empty($dtPeminjaman)) {
+            session()->setFlashdata('danger', 'Data peminjaman tidak ditemukan');
+            return $this->redirect();
+        }
+        if (!is_null($dtPeminjaman['jaminan'])) {
+            session()->setFlashdata('danger', 'Data peminjaman tidak valid');
+            return $this->redirect();
+        }
+        $data = [
+            'jaminan' => $this->request->getPost('changeJaminan'),
+            'status_pinjam' => 'Dipinjam'
+        ];
+        $this->ModelPinjam->update($dtPeminjaman['id_pinjam'], $data);
+        $dtPeminjaman = $this->ModelPinjam->find($this->request->getPost('changeJaminan_id'));
+        if (is_null($dtPeminjaman['jaminan'])) {
+            session()->setFlashdata('danger', 'Data peminjaman gagal dirubah. Silahkan coba lagi nanti');
+        } else {
+            session()->setFlashdata('success', 'Data peminjaman berhasil dirubah');
+        }
+        return $this->redirect();
+    }
+
+    public function addsopir()
+    {
+        if (!$this->validate([
+            'idPinjam' => 'required|is_natural_no_zero',
+            'sopirid' => 'required|is_natural_no_zero',
+        ])) {
+            session()->setFlashdata('danger', 'Data tidak valid');
+            return $this->redirect();
+        }
+        $dtTransaksi = $this->ModelPinjam->find($this->request->getPost('idPinjam'));
+        if (empty($dtTransaksi)) {
+            session()->setFlashdata('danger', 'Data transaksi tidak ditemukan');
+            return $this->redirect();
+        }
+        if (strtolower($dtTransaksi['sopir']) != "iya" || !is_null($dtTransaksi['id_sopir'])) {
+            session()->setFlashdata('danger', 'Data transaksi tidak valid');
+            return $this->redirect();
+        }
+        $dtSopir = $this->ModelSopir->find($this->request->getPost('sopirid'));
+        if (empty($dtSopir)) {
+            session()->setFlashdata('danger', 'Data sopir tidak ditemukan');
+            return $this->redirect();
+        }
+        $data = ['id_sopir' => $dtSopir['id_sopir']];
+        $this->ModelPinjam->update($dtTransaksi['id_pinjam'], $data);
+        $dtTransaksi = $this->ModelPinjam->find($this->request->getPost('idPinjam'));
+        if (is_null($dtTransaksi['id_sopir'])) {
+            session()->setFlashdata('danger', 'Data sopir gagal ditentukan. Silahkan coba lagi nanti.');
+            return $this->redirect();
+        } else {
+            session()->setFlashdata('success', 'Data sopir berhasil ditentukan');
+            return $this->redirect();
+        }
     }
 }

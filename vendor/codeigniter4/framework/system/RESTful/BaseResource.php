@@ -45,6 +45,8 @@ abstract class BaseResource extends Controller
         parent::initController($request, $response, $logger);
 
         $this->setModel($this->modelName);
+
+        date_default_timezone_set('Asia/Jakarta');
     }
 
     /**
@@ -60,11 +62,11 @@ abstract class BaseResource extends Controller
             $this->modelName = is_object($which) ? null : $which;
         }
 
-        if (empty($this->model) && ! empty($this->modelName) && class_exists($this->modelName)) {
+        if (empty($this->model) && !empty($this->modelName) && class_exists($this->modelName)) {
             $this->model = model($this->modelName);
         }
 
-        if (! empty($this->model) && empty($this->modelName)) {
+        if (!empty($this->model) && empty($this->modelName)) {
             $this->modelName = get_class($this->model);
         }
     }
