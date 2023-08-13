@@ -41,9 +41,9 @@
                                 <button class="btn btn-sm btn-info" data-toggle="modal" onclick="window.location.href='<?= base_url('transaksi/detail_kembali/' . $value['id_pinjam']) ?>'">
                                     <i class="fas fa-eye"></i>
                                 </button>
-                                <button class="btn btn-sm btn-outline-danger" data-toggle="modal">
+                                <!-- <button class="btn btn-sm btn-outline-danger" data-toggle="modal">
                                     <i class="fas fa-trash-alt"></i>
-                                </button>
+                                </button> -->
                             </td>
                         </tr>
                     <?php }  ?>
