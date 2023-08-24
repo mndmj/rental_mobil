@@ -157,13 +157,14 @@
                             </div>
                             <div class="form-group">
                                 <label for="">Tahun Keluaran</label>
-                                <input name="th_keluaran" value="<?= $value['th_keluaran'] ?>" class="form-control" placeholder="Keluaran" required>
+                                <input name="th_keluaran" value="<?= $value['th_keluaran'] ?>" class="form-control" min="1980" placeholder="Keluaran" required>
                             </div>
                             <div class="form-group">
                                 <label for="">Status Ketersediaan</label>
                                 <select name="status" class="form-control">
                                     <option value="Ada" selected>Ada</option>
                                     <option value="Tidak Ada">Tidak Ada</option>
+                                    <option value="Rusak">Rusak</option>
                                 </select>
                             </div>
                         </div>
@@ -174,7 +175,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="">CC Mobil</label>
-                                <input name="cc_mobil" value="<?= $value['cc_mobil'] ?>" class="form-control" placeholder="CC Mobil" required>
+                                <input name="cc_mobil" value="<?= $value['cc_mobil'] ?>" class="form-control" min="500" placeholder="CC Mobil" required>
                             </div>
                             <div class="form-group">
                                 <label for="">Warna Mobil</label>
@@ -182,7 +183,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="">Harga Sewa Mobil</label>
-                                <input name="harga_sewa" value="<?= $value['harga_sewa'] ?>" type="number" class="form-control" placeholder="Harga Sewa Mobil" required>
+                                <input name="harga_sewa" value="<?= $value['harga_sewa'] ?>" type="number" class="form-control" min="1000" placeholder="Harga Sewa Mobil" required>
                             </div>
                             <div class="row">
                                 <div class="col-12">
