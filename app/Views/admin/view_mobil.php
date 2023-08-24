@@ -187,7 +187,12 @@
                             <div class="row">
                                 <div class="col-12">
                                     <label for="foto_mobil">Foto Mobil</label>
-                                    <input type="file" name="foto_mobil" id="foto_mobil">
+                                    <input type="file" name="foto_mobil" id="foto_mobil" onchange="imgPreview('#foto_mobil_preview', event)" class="form-control-file" accept=".jpg,.jpeg,.png">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <img src="<?= base_url('img/foto_mobil/' . $value['foto_mobil']) ?>" alt="Foto mobil" id="foto_mobil_preview" class="mt-2" width="200px">
                                 </div>
                             </div>
                         </div>

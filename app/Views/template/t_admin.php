@@ -118,6 +118,15 @@
             </section>
         </div>
     </div>
+    <script>
+        function imgPreview(target, input) {
+            try {
+                $(target).attr('src', URL.createObjectURL(input.target.files[0]));
+            } catch (error) {
+                console.log(error)
+            }
+        }
+    </script>
     <?= $this->include('partial/notif.php') ?>
 </body>
 
