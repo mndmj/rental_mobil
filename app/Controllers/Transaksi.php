@@ -123,9 +123,54 @@ class Transaksi extends BaseController
             'subtitle' => 'Detail Peminjaman',
             'dtTransaksi' => $dtTransaksi,
             'dtMobil' => $dtMobil,
+            'jaminan' => $this->jaminan,
             'dtSopir' => $this->ModelSopir->findAll()
         ];
         return view('admin/view_detail_pinjam', $data);
+    }
+
+    public function  checkin($id_pinjam)
+    {
+        // Validasi input data
+        if (!$this->validate([
+            'nama_user' => 'required',
+            'telepon' => 'required|numeric',
+            'jaminan' => 'required|in_list[KTP,SIM C,Passport,KK,Kendaraan Bermotor,BPKB]'
+        ])) {
+            return redirect()->to(base_url("transaksi/detail/$id_pinjam"))->with('danger', 'Mohon lengkapi data dengan benar');
+        }
+        // Validasi data transaksi peminjaman
+        $dtTransaksi = $this->ModelPinjam->where('id_pinjam', $id_pinjam)
+            ->where('status_pinjam', 'Booking')->first();
+        if (empty($dtTransaksi)) {
+            return redirect()->to(base_url("transaksi/detail/$id_pinjam"))->with('danger', 'Data transaksi tidak ditemukan');
+        }
+        // Update data
+        $tglBaru = date("Y-m-d H:i:s");
+        $data = [
+            'nama_user' => $this->request->getPost('nama_user'),
+            'telepon' => $this->request->getPost('telepon'),
+            'jaminan' => $this->request->getPost('jaminan'),
+            'status_pinjam' => 'Dipinjam',
+            'tgl_pinjam' => $tglBaru
+        ];
+        $this->ModelPinjam->update($id_pinjam, $data);
+        // Cek keberhasilan input data
+        $dtCek = $this->ModelPinjam->where('id_pinjam', $id_pinjam)
+            ->where('nama_user', $this->request->getPost('nama_user'))
+            ->where('telepon', $this->request->getPost('telepon'))
+            ->where('jaminan', $this->request->getPost('jaminan'))
+            ->where('status_pinjam', 'Dipinjam')
+            ->where('tgl_pinjam', $tglBaru)
+            ->first();
+        if (empty($dtCek)) {
+            // Jika gagal diupdate
+            session()->setFlashdata('danger', 'Data gagal dikonfirmasi. Silahkan coba lagi nanti');
+        } else {
+            // Jika berhasil diupdate
+            session()->setFlashdata('success', 'Data berhasil dikonfirmasi');
+        }
+        return redirect()->to(base_url("transaksi/detail/$id_pinjam"));
     }
 
     public function insert_data()
