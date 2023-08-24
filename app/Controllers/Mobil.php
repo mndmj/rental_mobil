@@ -5,7 +5,6 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\ModelMobil;
 use App\Models\ModelPinjam;
-use CodeIgniter\RESTful\ResourceController;
 use Exception;
 
 class Mobil extends BaseController
