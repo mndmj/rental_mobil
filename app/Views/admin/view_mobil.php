@@ -162,9 +162,9 @@
                             <div class="form-group">
                                 <label for="">Status Ketersediaan</label>
                                 <select name="status" class="form-control">
-                                    <option value="Ada" selected>Ada</option>
-                                    <option value="Tidak Ada">Tidak Ada</option>
-                                    <option value="Rusak">Rusak</option>
+                                    <option value="Ada" <?= ($value['status'] == "Ada") ? 'selected' : '' ?>>Ada</option>
+                                    <option value="Tidak Ada" <?= ($value['status'] == "Tidak Ada") ? 'selected' : '' ?>>Tidak Ada</option>
+                                    <option value="Rusak" <?= ($value['status'] == "Rusak") ? 'selected' : '' ?>>Rusak</option>
                                 </select>
                             </div>
                         </div>
