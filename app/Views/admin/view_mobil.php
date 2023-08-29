@@ -162,7 +162,7 @@
                             <div class="form-group">
                                 <label for="">Status Ketersediaan</label>
                                 <select name="status" class="form-control">
-                                    <option value="Ada" selected>Ada</option>
+                                    <option value="Ada">Ada</option>
                                     <option value="Tidak Ada">Tidak Ada</option>
                                     <option value="Rusak">Rusak</option>
                                 </select>
