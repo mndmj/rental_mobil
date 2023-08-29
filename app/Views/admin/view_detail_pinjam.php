@@ -29,6 +29,7 @@
                             <th>Tanggal Pinjam</th>
                             <th>Telepon</th>
                             <th>Jaminan</th>
+                            <th>Penggunaan Sopir</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -42,6 +43,7 @@
                             <td><?= date("d/m/Y H:i:s", strtotime($dtTransaksi['tgl_pinjam'])) ?></td>
                             <td><?= (is_null($dtTransaksi['telepon_user'])) ? $dtTransaksi['telp_peminjam'] : $dtTransaksi['telepon_user'] ?></td>
                             <td><?= $dtTransaksi['jaminan'] ?></td>
+                            <td><?= $dtTransaksi['sopir'] ?></td>
                         </tr>
                         <?php //}  
                         ?>
@@ -113,6 +115,14 @@
             ?>
             <div class="modal-body">
                 <div class="row">
+                    <div class="col-12">
+                        <div class="alert alert-danger" role="alert">
+                            <div class="alert-heading">
+                                <h5 class="text-bold">Perhatian!</h5>
+                            </div>
+                            Pastikan data dengan benar, karena setelah diinputkan data di bawah ini sudah tidak dapat diubah.
+                        </div>
+                    </div>
                     <div class="col-12">
                         <div class="form-group">
                             <label for="">Nama</label>
@@ -187,6 +197,14 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
+                        <div class="col-12">
+                            <div class="alert alert-danger" role="alert">
+                                <div class="alert-heading">
+                                    <h5 class="text-bold">Perhatian!</h5>
+                                </div>
+                                Pastikan data dengan benar, karena setelah diinputkan data Sopir sudah tidak dapat diubah.
+                            </div>
+                        </div>
                         <div class="col-12">
                             <table class="table table-sm" id="tbl_sopir">
                                 <thead>
