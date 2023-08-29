@@ -115,6 +115,14 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-12">
+                            <div class="alert alert-danger" role="alert">
+                                <div class="alert-heading">
+                                    <h5 class="text-bold">Perhatian!</h5>
+                                </div>
+                                Pastikan data dengan benar, karena setelah diinputkan data di bawah ini sudah tidak dapat diubah.
+                            </div>
+                        </div>
+                        <div class="col-12">
                             <div class="form-group">
                                 <label for="">Nama</label>
                                 <input name="nama_user" class="form-control" placeholder="Nama" value="<?= $dtTransaksi['peminjam'] ?>" required>
