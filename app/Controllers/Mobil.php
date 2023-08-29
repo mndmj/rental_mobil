@@ -94,10 +94,10 @@ class Mobil extends BaseController
                 $dtMobil = $this->ModelMobil->find($id_mobil);
                 try {
                     unlink('img/foto_mobil/' . $dtMobil['foto_mobil']);
-                    $data['foto_mobil'] = $nameFoto;
-                    $isEditFoto = true;
                 } catch (Exception $e) {
                 }
+                $data['foto_mobil'] = $nameFoto;
+                $isEditFoto = true;
             }
         }
         if ($isEditFoto) {
