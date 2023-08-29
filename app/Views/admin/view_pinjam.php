@@ -49,9 +49,11 @@
                                 <button class="btn btn-sm btn-info" onclick="window.location.href='<?= base_url('transaksi/detail/' . $value['id_pinjam']) ?>'">
                                     <i class="fas fa-eye"></i>
                                 </button>
-                                <button class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete<?= $value['id_pinjam'] ?>">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
+                                <?php if ($value['status_pinjam'] == "Booking") : ?>
+                                    <button class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete<?= $value['id_pinjam'] ?>">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                <?php endif ?>
                             </td>
                         </tr>
                     <?php }  ?>
