@@ -65,7 +65,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label for="">NIK Sopir</label>
-                            <input name="nik" class="form-control" placeholder="NIK Sopir" required>
+                            <input name="nik" class="form-control" type="number" min="1" placeholder="NIK Sopir" required>
                         </div>
                         <div class="form-group">
                             <label for="">Nama Sopir</label>
@@ -77,7 +77,7 @@
                         </div>
                         <div class="form-group">
                             <label for="">Telepon</label>
-                            <input name="telepon" class="form-control" placeholder="Telepon" required>
+                            <input name="telepon" class="form-control" type="number" min="1" placeholder="Telepon" required>
                         </div>
                     </div>
                 </div>
@@ -107,7 +107,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="">NIK Sopir</label>
-                                <input name="nik" value="<?= $value['nik'] ?>" class="form-control" placeholder="NIK Sopir" required>
+                                <input name="nik" type="number" min="1" value="<?= $value['nik'] ?>" class="form-control" placeholder="NIK Sopir" required>
                             </div>
                             <div class="form-group">
                                 <label for="">Nama Sopir</label>
@@ -119,7 +119,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="">Telepon</label>
-                                <input name="telepon" value="<?= $value['telepon'] ?>" class="form-control" placeholder="Telepon" required>
+                                <input name="telepon" type="number" min="1" value="<?= $value['telepon'] ?>" class="form-control" placeholder="Telepon" required>
                             </div>
                         </div>
                     </div>

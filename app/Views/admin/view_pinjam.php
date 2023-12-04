@@ -2,6 +2,12 @@
 <?= $this->section('content') ?>
 
 <div class="col-sm p-2">
+    <div class="card bg-danger">
+        <div class="card-body">
+            <div class="h3 mb-3 font-weight-bold"><i class="fa-solid fa-triangle-exclamation fa-xs"></i>&ensp;Perhatian</div>
+            <p>Data pada tabel dengan tanda <b>diblock warna kuning</b> pertanda status pemesanannya Booking.</p>
+        </div>
+    </div>
     <div class="card card-dark">
         <div class="card-header">
             <h3 class="card-title">Daftar <?= $subtitle ?></h3>
@@ -24,7 +30,7 @@
                         <th>Telepon</th>
                         <th>Kendaraan</th>
                         <th>No Polisi</th>
-                        <th width="70px">Action</th>
+                        <th width="90px">Action</th>
                     </tr>
                 </thead>
                 <tbody>

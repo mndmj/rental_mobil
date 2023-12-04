@@ -76,12 +76,6 @@
             <?= form_open_multipart('mobil/insert_data') ?>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-12">
-                        <label for="foto_mobil">Foto Mobil</label>
-                        <input type="file" name="foto_mobil" id="foto_mobil">
-                    </div>
-                </div>
-                <div class="row">
                     <div class="col-6">
                         <div class="form-group">
                             <label for="">Nama Mobil</label>
@@ -117,6 +111,12 @@
                             <label for="">Harga Sewa Mobil</label>
                             <input name="harga_sewa" class="form-control" placeholder="Harga Sewa Mobil" type="number" required>
                         </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <label for="foto_mobil">Foto Mobil</label>
+                        <input type="file" class="form-control" accept=".jpg,.jpeg,.png" name="foto_mobil" id="foto_mobil">
                     </div>
                 </div>
             </div>
@@ -188,7 +188,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <label for="foto_mobil">Foto Mobil</label>
-                                    <input type="file" name="foto_mobil" id="foto_mobil" onchange="imgPreview('#foto_mobil_preview<?= $value['id_mobil'] ?>', event)" class="form-control-file" accept=".jpg,.jpeg,.png">
+                                    <input type="file" name="foto_mobil" id="foto_mobil" onchange="imgPreview('#foto_mobil_preview<?= $value['id_mobil'] ?>', event)" class="form-control" accept=".jpg,.jpeg,.png">
                                 </div>
                             </div>
                             <div class="row">
