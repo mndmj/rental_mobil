@@ -14,10 +14,11 @@ class ModelAuth extends Model
 
     public function get_data_login($username, $password)
     {
-        return    $this->db->table('user')
+        $model_user = new ModelUser();
+        return    $model_user
             ->where('username', $username)
             ->where('password', $password)
-            ->get()->getResultArray();
+            ->findAll();
     }
 
     public function login($username, $password)
