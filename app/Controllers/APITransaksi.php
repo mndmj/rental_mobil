@@ -201,7 +201,13 @@ class APITransaksi extends ResourceController
                 'msg' => 'Anda tidak terdaftar pada transaksi peminjaman saat ini '
             ];
         } else {
-            $durasi = (int)((strtotime($dtPinjam['tgl_estimasi_kembali']) - strtotime($dtPinjam['tgl_pinjam'])) / (3600 * 24));
+            if ($this->validate([
+                'durationOnHours' => 'required|in_list[true]'
+            ])) {
+                $durasi = ((strtotime($dtPinjam['tgl_estimasi_kembali']) - strtotime(date("Y-m-d H:i:s"))) / (3600));
+            } else {
+                $durasi = (int)((strtotime($dtPinjam['tgl_estimasi_kembali']) - strtotime($dtPinjam['tgl_pinjam'])) / (3600 * 24));
+            }
             $dtPinjam['durasiPinjam'] = $durasi;
             $msg = [
                 'success' => true,
