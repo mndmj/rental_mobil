@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 07 Des 2023 pada 19.51
+-- Waktu pembuatan: 24 Agu 2023 pada 10.18
 -- Versi server: 10.4.22-MariaDB
 -- Versi PHP: 8.1.2
 
@@ -74,12 +74,11 @@ CREATE TABLE `mobil` (
 --
 
 INSERT INTO `mobil` (`id_mobil`, `nama`, `merk`, `foto_mobil`, `no_polisi`, `th_keluaran`, `bahan_bakar`, `cc_mobil`, `warna_mobil`, `harga_sewa`, `status`, `delete_at`) VALUES
-(1, 'Avanza', 'Toyota', '1693322001_701c263827fe5557d334.png', 'AD 7657 AJ', 2010, 'Bensin', '1200', 'Hitam', 300000, 'Ada', NULL),
-(6, 'Xenia', 'Daihatsu', '1693321696_743db8121f923c4775e8.png', 'AD 4 SP', 2010, 'Bensin', '1000', 'Hitam', 200000, 'Tidak Ada', NULL),
+(1, 'Avanza', 'Toyota', '1690393813_592f813b6e81cbf195cf.jpg', 'AD 7657 AJ', 2010, 'Bensin', '1200', 'Hitam', 300000, 'Ada', NULL),
+(6, 'Xenia', 'Daihatsu', '1691943751_f78f35d9065b44b9527b.png', 'AD 4 SP', 2010, 'Bensin', '1000', 'Hitam', 200000, 'Ada', NULL),
 (7, 'Gg', 'honda', '1690393452_f39ede9ec7738c301b5c.jpg', 'AD 4 DI', 2010, 'Udara', '90000', 'Hitam St', 300000, 'Ada', '2023-07-27 00:51:09'),
-(8, 'Xenia', 'Daihatsu', '1693321791_9f2bc8834b2d6c5774cf.png', 'AD 1440 FA', 2009, 'Bensin', '1100', 'Putih', 300000, 'Ada', NULL),
-(9, 'Kijang', 'Toyota', '1690858523_6d4e783fa5908034f4e0.png', 'AD 4546 HJ', 2002, 'Solar', '1500', 'Hitam', 300000, 'Ada', NULL),
-(10, 'Hiace', 'Toyota', '1701691590_be8b01955fadb6e9b6d9.jpg', 'B 2344 FOK', 2019, 'Bensin', '2400', 'Putih', 500000, 'Ada', NULL);
+(8, 'Xenia', 'Daihatsu', '1690822152_09100ba2729c51d341e7.png', 'AD 1440 FA', 2009, 'Bensin', '1100', 'Putih', 300000, 'Ada', NULL),
+(9, 'Kijang', 'Toyota', '1690858523_6d4e783fa5908034f4e0.png', 'AD 4546 HJ', 2002, 'Solar', '1500', 'Hitam', 300000, 'Ada', NULL);
 
 -- --------------------------------------------------------
 
@@ -121,9 +120,7 @@ CREATE TABLE `sopir` (
 
 INSERT INTO `sopir` (`id_sopir`, `nik`, `nama`, `alamat`, `telepon`, `delete_at`) VALUES
 (1, '2147483647', 'Junet', 'Kulonprogo', '080976456708', NULL),
-(2, '008098', 'q', 'q', 'q', '2023-07-10 19:20:08'),
-(3, '899998898988', 'Supriyono', 'Dompol Kulon', '087675456344', NULL),
-(4, '1', 'q', 'q', '1', '2023-12-04 19:13:27');
+(2, '008098', 'q', 'q', 'q', '2023-07-10 19:20:08');
 
 -- --------------------------------------------------------
 
@@ -148,8 +145,7 @@ CREATE TABLE `transaksi_kembali` (
 --
 
 INSERT INTO `transaksi_kembali` (`id_kembali`, `id_pinjam`, `tgl_kembali`, `kondisi_mobil`, `jml_denda`, `mobil_rusak`, `kerusakan`, `denda_kerusakan`, `created_at`) VALUES
-(6, 22, '2023-08-13 23:32:16', '', '0', 'Tidak', NULL, NULL, '2023-08-13 23:32:16'),
-(7, 26, '2023-12-07 22:34:23', 'Baik baik saja', '-47520000', 'Tidak', NULL, NULL, '2023-12-07 22:34:23');
+(6, 22, '2023-08-13 23:32:16', '', '0', 'Tidak', NULL, NULL, '2023-08-13 23:32:16');
 
 -- --------------------------------------------------------
 
@@ -181,9 +177,7 @@ INSERT INTO `transaksi_pinjam` (`id_pinjam`, `id_user`, `id_mobil`, `nama_user`,
 (22, NULL, 9, 'arjuna', 'Kembali', '2023-08-13 23:23:54', '2023-08-13 23:23:54', '2023-08-14 23:23:54', '08976799078', 'KTP', 'Iya', 1, '2023-08-13 23:23:54'),
 (23, NULL, 1, 'Junaidi', 'Dipinjam', '2023-08-24 14:29:37', '2023-08-24 14:29:37', '2023-08-25 14:29:37', '089898066468', 'KTP', 'Tidak', NULL, '2023-08-24 14:29:37'),
 (24, NULL, 1, 'Marni', 'Dipinjam', '2023-08-24 14:30:03', '2023-08-24 14:30:03', '2023-08-26 14:30:03', '0876697536578', 'Kendaraan Bermotor', 'Iya', NULL, '2023-08-24 14:30:03'),
-(25, NULL, 6, 'Karno', 'Booking', '2023-08-26 09:00:00', '2023-08-24 14:31:49', '2023-08-27 09:00:00', '081116565299', 'KK', 'Tidak', NULL, '2023-08-24 14:31:49'),
-(26, NULL, 1, 'Kuntit', 'Kembali', '2023-12-07 22:33:56', '2023-08-29 22:03:44', '2023-08-30 22:03:44', '089709778585', 'BPKB', 'Tidak', NULL, '2023-08-29 22:03:44'),
-(27, 2, 1, NULL, 'Dipinjam', '2023-11-01 22:53:00', '2023-11-01 22:53:00', '2023-11-21 22:53:00', '08968746549', 'KTP', 'Iya', NULL, NULL);
+(25, NULL, 6, 'Karno', 'Booking', '2023-08-26 09:00:00', '2023-08-24 14:31:49', '2023-08-27 09:00:00', '081116565299', 'KK', 'Tidak', NULL, '2023-08-24 14:31:49');
 
 -- --------------------------------------------------------
 
@@ -278,7 +272,7 @@ ALTER TABLE `detail_user`
 -- AUTO_INCREMENT untuk tabel `mobil`
 --
 ALTER TABLE `mobil`
-  MODIFY `id_mobil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_mobil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT untuk tabel `role`
@@ -290,19 +284,19 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT untuk tabel `sopir`
 --
 ALTER TABLE `sopir`
-  MODIFY `id_sopir` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_sopir` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `transaksi_kembali`
 --
 ALTER TABLE `transaksi_kembali`
-  MODIFY `id_kembali` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_kembali` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `transaksi_pinjam`
 --
 ALTER TABLE `transaksi_pinjam`
-  MODIFY `id_pinjam` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id_pinjam` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
