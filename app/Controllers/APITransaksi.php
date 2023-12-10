@@ -42,6 +42,7 @@ class APITransaksi extends ResourceController
         return $this->respond($dtTransaksi);
     }
 
+    // Untuk setting biaya sopir
     public function getbiayasopir()
     {
         return $this->respond([
@@ -208,7 +209,8 @@ class APITransaksi extends ResourceController
         if (empty($dtUser)) {
             return $this->fail("Data user tidak ditemukan");
         }
-        $dtPinjam = $this->ModelPinjam->select('status_pinjam, tgl_pinjam, transaksi_pinjam.tgl_kembali as tgl_estimasi_kembali, id_mobil, sopir')
+        $dtPinjam = $this->ModelPinjam->select('status_pinjam, tgl_pinjam, transaksi_pinjam.tgl_kembali as tgl_estimasi_kembali, mobil.id_mobil as id_mobil, sopir, mobil.nama as nama_mobil, no_polisi as nopol')
+            ->join('mobil', 'transaksi_pinjam.id_mobil = mobil.id_mobil')
             ->where('id_user', $dtUser['id_user'])->whereIn('status_pinjam', ['Booking', 'Dipinjam'])->first();
         if (empty($dtPinjam)) {
             $msg = [
@@ -225,10 +227,30 @@ class APITransaksi extends ResourceController
             }
             $dtPinjam['durasiPinjam'] = $durasi;
             $denda = (int)((strtotime($dtPinjam['tgl_estimasi_kembali']) - strtotime(date("Y-m-d H:i:s"))) / 3600);
+            $keterlambatan = ((strtotime($dtPinjam['tgl_estimasi_kembali']) - strtotime(date("Y-m-d H:i:s"))) / 3600);
             if ($denda < 0) {
                 $dtPinjam['denda'] = $denda * 20000 * -1;
             } else {
                 $dtPinjam['denda'] = 0;
+            }
+            if ($keterlambatan < 0) {
+                if ($keterlambatan > -1) {
+                    $keterlambatan = (int)($keterlambatan * 60);
+                    $dtPinjam['tenggangWaktu'] = $keterlambatan;
+                    $dtPinjam['satuan'] = "Menit";
+                } else {
+                    $dtPinjam['tenggangWaktu'] = (int)$keterlambatan;
+                    $dtPinjam['satuan'] = "Jam";
+                }
+            } else {
+                if ($keterlambatan < 1) {
+                    $keterlambatan = (int)($keterlambatan * 60);
+                    $dtPinjam['tenggangWaktu'] = $keterlambatan;
+                    $dtPinjam['satuan'] = "Menit";
+                } else {
+                    $dtPinjam['tenggangWaktu'] = (int)$keterlambatan;
+                    $dtPinjam['satuan'] = "Jam";
+                }
             }
             $msg = [
                 'success' => true,
