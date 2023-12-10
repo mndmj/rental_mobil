@@ -27,6 +27,21 @@ class APITransaksi extends ResourceController
         throw PageNotFoundException::forPageNotFound();
     }
 
+    public function get()
+    {
+        if (!$this->validate([
+            'id_user' => 'required|is_natural_no_zero'
+        ])) {
+            return $this->setFail('Data tidak valid');
+        }
+        $dtTransaksi = $this->ModelPinjam->select('tgl_pinjam, transaksi_kembali.created_at as tgl_kembali, mobil.nama as nama_mobil, no_polisi as nopol')
+            ->join('transaksi_kembali', 'transaksi_pinjam.id_pinjam = transaksi_kembali.id_pinjam')
+            ->join('mobil', 'transaksi_pinjam.id_mobil = mobil.id_mobil')
+            ->where('id_user', $this->request->getPost('id_user'))
+            ->findAll();
+        return $this->respond($dtTransaksi);
+    }
+
     public function getbiayasopir()
     {
         return $this->respond([
@@ -209,6 +224,12 @@ class APITransaksi extends ResourceController
                 $durasi = (int)((strtotime($dtPinjam['tgl_estimasi_kembali']) - strtotime($dtPinjam['tgl_pinjam'])) / (3600 * 24));
             }
             $dtPinjam['durasiPinjam'] = $durasi;
+            $denda = (int)((strtotime($dtPinjam['tgl_estimasi_kembali']) - strtotime(date("Y-m-d H:i:s"))) / 3600);
+            if ($denda < 0) {
+                $dtPinjam['denda'] = $denda * 20000 * -1;
+            } else {
+                $dtPinjam['denda'] = 0;
+            }
             $msg = [
                 'success' => true,
                 'msg' => 'Anda masih terdaftar pada transaksi peminjaman saat ini'
