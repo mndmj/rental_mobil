@@ -34,12 +34,20 @@ class APITransaksi extends ResourceController
         ])) {
             return $this->setFail('Data tidak valid');
         }
-        $dtTransaksi = $this->ModelPinjam->select('tgl_pinjam, transaksi_kembali.created_at as tgl_kembali, mobil.nama as nama_mobil, no_polisi as nopol')
+        $dtTransaksi = $this->ModelPinjam->select('tgl_pinjam, transaksi_pinjam.tgl_kembali as tgl_kembali, mobil.nama as nama_mobil, no_polisi as nopol, harga_sewa, denda_kerusakan, jml_denda')
             ->join('transaksi_kembali', 'transaksi_pinjam.id_pinjam = transaksi_kembali.id_pinjam')
             ->join('mobil', 'transaksi_pinjam.id_mobil = mobil.id_mobil')
             ->where('id_user', $this->request->getPost('id_user'))
             ->findAll();
-        return $this->respond($dtTransaksi);
+        $data = [];
+        foreach ($dtTransaksi as $dt) {
+            $durasi = (int)((strtotime($dt['tgl_pinjam']) - strtotime($dt['tgl_kembali'])) / (3600 * 24));
+            $sewaMobil = $dt['harga_sewa'] * $durasi;
+            $dtDenda = ($dt['denda_kerusakan'] < 0) ? $dt['denda_kerusakan'] * -1 : $dt['denda_kerusakan'];
+            $dt['total'] = (($sewaMobil + $dtDenda + $dt['jml_denda']) < 0) ? ($sewaMobil + $dtDenda + $dt['jml_denda']) * -1 : ($sewaMobil + $dtDenda + $dt['jml_denda']);
+            array_push($data, $dt);
+        }
+        return $this->respond($data);
     }
 
     // Untuk setting biaya sopir
