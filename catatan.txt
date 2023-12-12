@@ -1,7 +1,7 @@
 Dashboard bagian jumlah peminjam dan kembali belum
 
 **MOBILE**
-Pada mobile notif nya belum sesuai mobil yg di pinjam
-Fragment profil mobile butuh hint diisi ya tidak
-denda pada view traksaksi belum tampil
-riwayat peminjaman user
+riwayat peminjaman user (v)
+denda pada view traksaksi belum tampil (v)
+Fragment profil mobile butuh hint diisi ya tidak (~)
+Pada mobile notif nya belum sesuai mobil yg di pinjam (v)

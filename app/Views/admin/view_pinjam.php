@@ -236,7 +236,7 @@
 
     function tipePinjam(val) {
         if (val == null || val == "") {
-            alert("Mohon pilih tipe servis");
+            alert("Mohon pilih tipe peminjaman");
         } else {
             if (val == "sekarang") {
                 $("#tgl_pinjam").attr("disabled", "");
@@ -278,7 +278,9 @@
                         durasi: String($("#durasi_pinjam").val())
                     },
                     success: function(response) {
-                        console.log(response);
+                        try {
+                            response = JSON.parse(response);
+                        } catch (error) {}
                         if (response.success) {
                             $("#listMobilNotify").html(response.msg);
                             $("#listMobilNotify").removeClass('text-warning');
