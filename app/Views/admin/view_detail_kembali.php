@@ -47,7 +47,7 @@
                     </div>
                 </div>
                 <div class="card-body pt-0">
-                    <table class="table table-sm" id="tbl_tr">
+                    <table class="table table-sm" id="tbl_tr2">
                         <thead>
                             <tr>
                                 <th width="50px">#</th>
@@ -135,8 +135,8 @@
                                 </div>
                                 <div class="col-4">
                                     <div class="form-check">
-                                        <input class="mb-0 form-check-input" type="checkbox" name="crashCar" id="crashCar" value="1">
-                                        <label class="m-0" for="crashCar">Mobil Rusak</label><br>
+                                        <input class="mb-0 form-check-input crashCar" type="checkbox" name="crashCar" id="crashCar" value="1">
+                                        <label class="m-0 crashCar" for="crashCar">Mobil Rusak</label><br>
                                     </div>
                                     <small>Centang checklist tersebut ketika mengembalikan mobil dengan keadaan rusak</small>
                                     <div class="form-group mt-4">
@@ -163,6 +163,16 @@
 </div>
 
 <script>
+    $(".crashCar").click(function() {
+        if ($('#crashCar').is(':checked')) {
+            $("#denda_kerusakan").removeAttr('disabled');
+            $("#kerusakan").removeAttr('disabled');
+        } else {
+            $("#denda_kerusakan").attr('disabled', '');
+            $("#kerusakan").attr('disabled', '');
+        }
+    });
+
     $('#tbl_tr').DataTable({
         bFilter: false,
         bPaginate: false,
@@ -179,15 +189,11 @@
         bInfo: false
     });
 
-    $("#crashCar").click(function() {
-        if (document.getElementById('crashCar').checked == true) {
-            $("#denda_kerusakan").removeAttr('disabled');
-            $("#kerusakan").removeAttr('disabled');
-        } else {
-            $("#denda_kerusakan").attr('disabled', '');
-            $("#kerusakan").attr('disabled', '');
-        }
-    });
+    // document.querySelectorAll('.crashCar').forEach(e => {
+    //     e.onclick = function() {
+    //         alert('ok');
+    //     }
+    // })
 
     <?php if ($dtTransaksi['status_pinjam'] == "Dipinjam") : ?>
 
