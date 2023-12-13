@@ -26,7 +26,7 @@ class Transaksi extends BaseController
 
     public function index()
     {
-        return throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
     }
 
     // PINJAM

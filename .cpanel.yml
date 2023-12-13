@@ -1,0 +1,5 @@
+---
+deployment:
+task:
+-export DEPOYPATH = /home/rents4544/public_html/
+-bin/cp -R public/. $DEPLOYPATH
