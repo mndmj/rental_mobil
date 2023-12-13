@@ -67,7 +67,7 @@ class APIMobil extends ResourceController
                 $i++;
             }
         } catch (\Throwable $th) {
-            $data[0] = $dtMobils;
+            $dtMobils[0] = $dtMobils;
         }
         return $this->respond($data);
     }
