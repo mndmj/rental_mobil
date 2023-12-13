@@ -54,6 +54,7 @@ class APIMobil extends ResourceController
                     $dtPeminjaman = $this->ModelPeminjman->where('id_mobil', $dtMobils[$i]['id_mobil'])
                         ->where("date(tgl_pinjam) <= '$now'")
                         ->where("date(tgl_kembali) >= '$now'")
+                        ->where('status_pinjam <>', 'Kembali')
                         ->first();
                     if (!empty($dtPeminjaman)) {
                         if ($justAvailable) {
