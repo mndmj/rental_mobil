@@ -65,7 +65,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label for="">NIK Sopir</label>
-                            <input name="nik" class="form-control" type="number" min="1" placeholder="NIK Sopir" required>
+                            <input name="nik" class="form-control" type="text" pattern="[0-9]" title="Input harus angka" inputmode="numeric" minlength="16" maxlength="16" placeholder="NIK Sopir" required>
                         </div>
                         <div class="form-group">
                             <label for="">Nama Sopir</label>
@@ -77,7 +77,7 @@
                         </div>
                         <div class="form-group">
                             <label for="">Telepon</label>
-                            <input name="telepon" class="form-control" type="number" min="1" placeholder="Telepon" required>
+                            <input name="telepon" class="form-control" type="tel" minlength="12" maxlength="15" pattern="[0-9]" title="Input harus angka" placeholder="Telepon" required>
                         </div>
                     </div>
                 </div>
