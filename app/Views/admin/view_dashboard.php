@@ -30,7 +30,7 @@
         <div class="small-box bg-red">
             <div class="inner">
                 <h3>Peminjaman</h3>
-                <p>Jumlah data : </p>
+                <p>Jumlah data : <?= count($pinjam) ?></p>
             </div>
             <div class="icon">
                 <i class="fas fa-upload"></i>
@@ -42,7 +42,7 @@
         <div class="small-box bg-green">
             <div class="inner">
                 <h3>Pengembalian</h3>
-                <p>Jumlah data : </p>
+                <p>Jumlah data : <?= count($kembali) ?></p>
             </div>
             <div class="icon">
                 <i class="fas fa-download"></i>
