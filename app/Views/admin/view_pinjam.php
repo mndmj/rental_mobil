@@ -117,7 +117,7 @@
                         </div>
                         <div class="form-group">
                             <label for="">Telepon</label>
-                            <input name="telepon" class="form-control" type="text" minlength="11" maxlength="15" pattern="[0-9]" title="Input harus angka" placeholder="Telepon" required>
+                            <input name="telepon" class="form-control" type="text" minlength="11" maxlength="15" pattern="\d*" title="Input harus angka" placeholder="Telepon" required>
                         </div>
                         <div class="form-group">
                             <label for="">No Polisi</label>

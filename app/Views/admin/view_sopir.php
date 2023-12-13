@@ -65,7 +65,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label for="">NIK Sopir</label>
-                            <input name="nik" class="form-control" type="text" pattern="[0-9]" title="Input harus angka" inputmode="numeric" minlength="16" maxlength="16" placeholder="NIK Sopir" required>
+                            <input name="nik" class="form-control" type="text" pattern="\d*" title="Input harus angka" inputmode="numeric" minlength="16" maxlength="16" placeholder="NIK Sopir" required>
                         </div>
                         <div class="form-group">
                             <label for="">Nama Sopir</label>
@@ -77,7 +77,7 @@
                         </div>
                         <div class="form-group">
                             <label for="">Telepon</label>
-                            <input name="telepon" class="form-control" type="text" minlength="11" maxlength="15" pattern="[0-9]" title="Input harus angka" placeholder="Telepon" required>
+                            <input name="telepon" class="form-control" type="text" minlength="11" maxlength="15" pattern="\d*" title="Input harus angka" placeholder="Telepon" required>
                         </div>
                     </div>
                 </div>
@@ -107,7 +107,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="">NIK Sopir</label>
-                                <input name="nik" type="text" pattern="[0-9]" title="Input harus angka" inputmode="numeric" minlength="16" maxlength="16" value="<?= $value['nik'] ?>" class="form-control" placeholder="NIK Sopir" required>
+                                <input name="nik" type="text" pattern="\d*" title="Input harus angka" inputmode="numeric" minlength="16" maxlength="16" value="<?= $value['nik'] ?>" class="form-control" placeholder="NIK Sopir" required>
                             </div>
                             <div class="form-group">
                                 <label for="">Nama Sopir</label>
@@ -119,7 +119,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="">Telepon</label>
-                                <input name="telepon" type="tel" minlength="12" maxlength="15" pattern="[0-9]" title="Input harus angka" value="<?= $value['telepon'] ?>" class="form-control" placeholder="Telepon" required>
+                                <input name="telepon" type="tel" minlength="12" maxlength="15" pattern="\d*" title="Input harus angka" value="<?= $value['telepon'] ?>" class="form-control" placeholder="Telepon" required>
                             </div>
                         </div>
                     </div>
