@@ -69,6 +69,9 @@ class APIMobil extends ResourceController
         } catch (\Throwable $th) {
             $dtMobils[0] = $dtMobils;
         }
+        foreach ($dtMobils as $key => $val) {
+            array_push($data, $val);
+        }
         return $this->respond($data);
     }
 
