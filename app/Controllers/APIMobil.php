@@ -35,35 +35,41 @@ class APIMobil extends ResourceController
             $justAvailable = true;
         }
         $dtMobils = $dtMobils->findAll();
+        $data = [];
         $i = 0;
-        foreach ($dtMobils as $dtMobil) {
-            $now = date("Y-m-d");
-            if ($dtMobils[$i]['status'] == "Tidak Ada") {
-                $dtPeminjaman = $this->ModelPeminjman->where('id_mobil', $dtMobils[$i]['id_mobil'])
-                    ->where('status_pinjam', 'Dipinjam')
-                    ->where("date(tgl_pinjam) <= '$now'")
-                    ->where("date(tgl_kembali) >= '$now'")
-                    ->first();
-                if (!empty($dtPeminjaman)) {
-                    $dtMobils[$i]['tgl_pinjam'] = $dtPeminjaman['tgl_pinjam'];
-                    $dtMobils[$i]['estimasi_tgl_kembali'] = $dtPeminjaman['tgl_kembali'];
-                }
-            } else {
-                $dtPeminjaman = $this->ModelPeminjman->where('id_mobil', $dtMobils[$i]['id_mobil'])
-                    ->where("date(tgl_pinjam) <= '$now'")
-                    ->where("date(tgl_kembali) >= '$now'")
-                    ->first();
-                if (!empty($dtPeminjaman)) {
-                    if ($justAvailable) {
-                        unset($dtMobils[$i]);
-                    } else {
-                        $dtMobils[$i]['status'] = "Dibooking";
+        try {
+            foreach ($dtMobils as $dtMobil) {
+                $now = date("Y-m-d");
+                if ($dtMobils[$i]['status'] == "Tidak Ada") {
+                    $dtPeminjaman = $this->ModelPeminjman->where('id_mobil', $dtMobils[$i]['id_mobil'])
+                        ->where('status_pinjam', 'Dipinjam')
+                        ->where("date(tgl_pinjam) <= '$now'")
+                        ->where("date(tgl_kembali) >= '$now'")
+                        ->first();
+                    if (!empty($dtPeminjaman)) {
+                        $dtMobils[$i]['tgl_pinjam'] = $dtPeminjaman['tgl_pinjam'];
+                        $dtMobils[$i]['estimasi_tgl_kembali'] = $dtPeminjaman['tgl_kembali'];
+                    }
+                } else {
+                    $dtPeminjaman = $this->ModelPeminjman->where('id_mobil', $dtMobils[$i]['id_mobil'])
+                        ->where("date(tgl_pinjam) <= '$now'")
+                        ->where("date(tgl_kembali) >= '$now'")
+                        ->first();
+                    if (!empty($dtPeminjaman)) {
+                        if ($justAvailable) {
+                            unset($dtMobils[$i]);
+                        } else {
+                            $dtMobils[$i]['status'] = "Dibooking";
+                        }
                     }
                 }
+                $i++;
             }
-            $i++;
+            $data = $dtMobils;
+        } catch (\Throwable $th) {
+            $data[0] = $dtMobils;
         }
-        return $this->respond($dtMobils);
+        return $this->respond($data);
     }
 
     public function get()
