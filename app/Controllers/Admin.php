@@ -22,11 +22,16 @@ class Admin extends BaseController
 
     public function index()
     {
+        $dtKembali = $this->ModelKembali->findAll();
+        $ignorePinjam = [];
+        foreach ($dtKembali as $dt) {
+            array_push($ignorePinjam, $dt['id_pinjam']);
+        }
         $data = [
             'mobil' => $this->ModelAdmin->total_mobil('id_mobil'),
             'sopir' => $this->ModelAdmin->total_sopir('id_sopir'),
-            'pinjam' => $this->ModelPinjam->findAll(),
-            'kembali' => $this->ModelKembali->findAll()
+            'pinjam' => $this->ModelPinjam->whereNotIn('id_pinjam', $ignorePinjam)->findAll(),
+            'kembali' => $dtKembali
         ];
         return view('admin/view_dashboard', $data);
     }
