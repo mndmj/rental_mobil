@@ -149,9 +149,9 @@ class Mobil extends BaseController
                     $listIgnore = array_merge($listIgnore, $tmp);
                 }
                 if (count($ignoreMobil) == 0) {
-                    $freeMobil = $this->ModelMobil->select("id_mobil, nama, merk, no_polisi, harga_sewa")->findAll();
+                    $freeMobil = $this->ModelMobil->select("id_mobil, nama, merk, no_polisi, harga_sewa")->where('status <>', 'Rusak')->findAll();
                 } else {
-                    $freeMobil = $this->ModelMobil->select("id_mobil, nama, merk, no_polisi, harga_sewa")->whereNotIn('id_mobil', $listIgnore)->findAll();
+                    $freeMobil = $this->ModelMobil->select("id_mobil, nama, merk, no_polisi, harga_sewa")->where('status <>', 'Rusak')->whereNotIn('id_mobil', $listIgnore)->findAll();
                 }
                 if (count($freeMobil) == 0) {
                     $data = [
