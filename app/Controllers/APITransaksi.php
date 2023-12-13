@@ -242,23 +242,13 @@ class APITransaksi extends ResourceController
                 $dtPinjam['denda'] = 0;
             }
             if ($keterlambatan < 0) {
-                if ($keterlambatan > -1) {
-                    $keterlambatan = (int)($keterlambatan * 60);
-                    $dtPinjam['tenggangWaktu'] = $keterlambatan;
-                    $dtPinjam['satuan'] = "Menit";
-                } else {
-                    $dtPinjam['tenggangWaktu'] = (int)$keterlambatan;
-                    $dtPinjam['satuan'] = "Jam";
-                }
+                $keterlambatan = (int)($keterlambatan * 60);
+                $dtPinjam['tenggangWaktu'] = $keterlambatan;
+                $dtPinjam['satuan'] = "Menit";
             } else {
-                if ($keterlambatan < 1) {
-                    $keterlambatan = (int)($keterlambatan * 60);
-                    $dtPinjam['tenggangWaktu'] = $keterlambatan;
-                    $dtPinjam['satuan'] = "Menit";
-                } else {
-                    $dtPinjam['tenggangWaktu'] = (int)$keterlambatan;
-                    $dtPinjam['satuan'] = "Jam";
-                }
+                $keterlambatan = (int)($keterlambatan * 60);
+                $dtPinjam['tenggangWaktu'] = $keterlambatan;
+                $dtPinjam['satuan'] = "Menit";
             }
             $msg = [
                 'success' => true,
