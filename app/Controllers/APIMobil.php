@@ -49,7 +49,6 @@ class APIMobil extends ResourceController
                     if (!empty($dtPeminjaman)) {
                         $dtMobils[$i]['tgl_pinjam'] = $dtPeminjaman['tgl_pinjam'];
                         $dtMobils[$i]['estimasi_tgl_kembali'] = $dtPeminjaman['tgl_kembali'];
-                        array_push($data, $dtMobils[$i]);
                     }
                 } else {
                     $dtPeminjaman = $this->ModelPeminjman->where('id_mobil', $dtMobils[$i]['id_mobil'])
@@ -62,7 +61,6 @@ class APIMobil extends ResourceController
                             unset($dtMobils[$i]);
                         } else {
                             $dtMobils[$i]['status'] = "Dibooking";
-                            array_push($data, $dtMobils[$i]);
                         }
                     }
                 }
