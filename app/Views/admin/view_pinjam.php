@@ -5,7 +5,7 @@
     <div class="card bg-danger">
         <div class="card-body">
             <div class="h3 mb-3 font-weight-bold"><i class="fa-solid fa-triangle-exclamation fa-xs"></i>&ensp;Perhatian</div>
-            <p>Data pada tabel dengan tanda <b>diblock warna kuning</b> pertanda status pemesanannya Booking.</p>
+            <p>Data pada tabel dengan tanda <b>diblock warna kuning</b> pertanda status pemesanannya Booking sudah melewati batas waktu.</p>
         </div>
     </div>
     <div class="card card-dark">
