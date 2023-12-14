@@ -145,10 +145,12 @@ class Mobil extends BaseController
                     ->findAll();
                 $listIgnore = [];
                 foreach ($ignoreMobil as $dt) {
-                    $tmp = [$dt['id_mobil']];
-                    $listIgnore = array_merge($listIgnore, $tmp);
+                    if ($dt['status_pinjam'] != "Kembali") {
+                        $tmp = [$dt['id_mobil']];
+                        $listIgnore = array_merge($listIgnore, $tmp);
+                    }
                 }
-                if (count($ignoreMobil) == 0) {
+                if (count($ignoreMobil) == 0 || empty($listIgnore)) {
                     $freeMobil = $this->ModelMobil->select("id_mobil, nama, merk, no_polisi, harga_sewa")->where('status <>', 'Rusak')->findAll();
                 } else {
                     $freeMobil = $this->ModelMobil->select("id_mobil, nama, merk, no_polisi, harga_sewa")->where('status <>', 'Rusak')->whereNotIn('id_mobil', $listIgnore)->findAll();

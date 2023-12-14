@@ -61,7 +61,6 @@ class Transaksi extends BaseController
             'sopir' => 'required|in_list[Iya,Tidak]',
             'jaminan' => 'required|in_list[KTP,SIM C,Passport,KK,Kendaraan Bermotor,BPKB]'
         ])) {
-            dd($this->request->getPost());
             session()->setFlashdata('danger', 'Data tidak valid');
             return $this->redirect();
         }
@@ -88,7 +87,6 @@ class Transaksi extends BaseController
             if (!$this->validate([
                 'tgl_pinjam' => 'required'
             ])) {
-                dd($this->validator->getErrors(), $this->request->getPost('tgl_pinjam'));
                 session()->setFlashdata('danger', 'Ketika booking, tanggal pinjam harus di isi');
                 return $this->redirect();
             }
@@ -96,6 +94,10 @@ class Transaksi extends BaseController
             $data['status_pinjam'] = "Booking";
         }
         if ($this->ModelPinjam->insert($data)) {
+            $dataMobil = [
+                'status' => 'Tidak Ada'
+            ];
+            $this->ModelMobil->update($dtMobil['id_mobil'], $dataMobil);
             session()->setFlashdata('success', "Data berhasil dimasukan");
         } else {
             session()->setFlashdata('danger', "Data gagal dimasukan");

@@ -91,7 +91,7 @@
                         </div>
                         <div class="form-group">
                             <label for="">Tahun Keluaran</label>
-                            <input name="th_keluaran" class="form-control" placeholder="Keluaran" required>
+                            <input type="number" min="1980" name="th_keluaran" class="form-control" placeholder="Keluaran" required>
                         </div>
                     </div>
                     <div class="col-6">
@@ -101,7 +101,7 @@
                         </div>
                         <div class="form-group">
                             <label for="">CC Mobil</label>
-                            <input name="cc_mobil" class="form-control" placeholder="CC Mobil" required>
+                            <input type="number" min="500" name="cc_mobil" class="form-control" placeholder="CC Mobil" required>
                         </div>
                         <div class="form-group">
                             <label for="">Warna Mobil</label>
@@ -157,7 +157,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="">Tahun Keluaran</label>
-                                <input name="th_keluaran" value="<?= $value['th_keluaran'] ?>" class="form-control" min="1980" placeholder="Keluaran" required>
+                                <input name="th_keluaran" type="number" value="<?= $value['th_keluaran'] ?>" class="form-control" min="1980" placeholder="Keluaran" required>
                             </div>
                             <div class="form-group">
                                 <label for="">Status Ketersediaan</label>
@@ -175,7 +175,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="">CC Mobil</label>
-                                <input name="cc_mobil" value="<?= $value['cc_mobil'] ?>" class="form-control" min="500" placeholder="CC Mobil" required>
+                                <input type="number" name="cc_mobil" value="<?= $value['cc_mobil'] ?>" class="form-control" min="500" placeholder="CC Mobil" required>
                             </div>
                             <div class="form-group">
                                 <label for="">Warna Mobil</label>
