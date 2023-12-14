@@ -57,18 +57,15 @@ class APIAuth extends ResourceController
     {
         if (!$this->validate([
             'username' => 'required|max_length[16]|is_unique[user.username]',
-            'password' => 'required|max_length[16]',
+            'password' => 'required|max_length[16]|min_length[8]',
             'email' => 'required|valid_email|is_unique[user.email]',
-            'nik' => 'required|max_length[16]|numeric|is_unique[detail_user.nik]',
+            'nik' => 'required|max_length[16]|min_length[16]|numeric|is_unique[detail_user.nik]',
             'nama' => 'required|max_length[30]',
-            'telepon' => 'required|max_length[15]|numeric|is_unique[detail_user.telepon]',
+            'telepon' => 'required|max_length[15]|min_length[9]|numeric|is_unique[detail_user.telepon]',
             'alamat' => 'required',
             'jk' => 'required|in_list[Laki-laki,Perempuan]'
         ])) {
-            $msg = [
-                'success' => false,
-                'msg' => 'Data tidak valid'
-            ];
+            return $this->setFail('Data tidak valid', 400, $this->validator->getErrors());
         } else {
             $data = [
                 'username' => $this->request->getPost('username'),
