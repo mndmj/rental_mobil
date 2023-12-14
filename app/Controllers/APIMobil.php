@@ -104,6 +104,8 @@ class APIMobil extends ResourceController
                 ->where("date(tgl_kembali) >= '$now'")
                 ->first();
             if (!empty($dtPeminjaman)) {
+                $dtMobil['tgl_pinjam'] = $dtPeminjaman['tgl_pinjam'];
+                $dtMobil['estimasi_tgl_kembali'] = $dtPeminjaman['tgl_kembali'];
                 $dtMobil['status'] = "Dibooking";
             }
         }

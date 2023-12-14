@@ -73,14 +73,14 @@ class APIAccount extends ResourceController
             'username' => 'required',
             'email' => 'required|valid_email'
         ])) {
-            return $this->setFail('Data tidak valid');
+            return $this->setFail('Data tidak valid', 400, $this->validator->getErrors());
         }
 
         $dtUser = $this->ModelUser->join('detail_user', 'user.id_user = detail_user.id_user')
             ->where('user.id_user', $this->request->getPost('id_user'))
             ->first();
         if (empty($dtUser)) {
-            return $this->setFail('Data akun tidak ditemukan');
+            return $this->setFail('Data akun tidak ditemukan ' . $this->request->getBody('id_user'));
         }
 
         if ($dtUser['username'] != $this->request->getPost('username')) {

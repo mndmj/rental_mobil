@@ -113,8 +113,14 @@ class ResourceController extends BaseResource
         }
     }
 
-    protected function setFail($msg, int $status = 400)
+    protected function setFail($msg, int $status = 400, $data = null)
     {
-        return $this->fail($msg, $status, $status, $msg);
+        $result = $this->fail($msg, $status, $status, $msg);
+        if (!is_null($data)) {
+            $tmp = json_decode($result->getJSON(), true);
+            $tmp['err'] = $data;
+            $result->setBody(json_encode($tmp));
+        }
+        return $result;
     }
 }
